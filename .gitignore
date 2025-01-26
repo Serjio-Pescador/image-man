@@ -1,2 +1,4 @@
 /screenshots/
 /allure-results/
+/.env
+/.idea/.gitignore
