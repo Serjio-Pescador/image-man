@@ -4,7 +4,7 @@ import os, requests
 from dotenv import load_dotenv
 from PIL import Image
 from io import BytesIO
-import io
+import time
 from playwright.sync_api import Page, expect
 from urllib.parse import parse_qs
 # from static_data.uuid_data import football
@@ -15,7 +15,7 @@ load_dotenv()
 host_url = os.getenv("HOST")
 static_url = os.getenv("STATIC_URL")
 
-review_for_3312 = ['fe8374ab-45b3-485d-aef0-3f5513c8695c',
+preset_3312 = ['fe8374ab-45b3-485d-aef0-3f5513c8695c',
                    'ddd33772-c71d-4160-b9ba-6b2a05f0125a',
                    '179dbec9-a225-4ffc-82f9-78006e74bd65',
                    '437de2a8-270f-419c-8365-529e774b7f09',
@@ -38,14 +38,26 @@ review_for_3312 = ['fe8374ab-45b3-485d-aef0-3f5513c8695c',
                    '67463695-b649-4486-b029-934987239ece',
                    'b4de5e7a-8426-4387-ba2c-53578610fc2c',
                    '771a6cb2-4338-48b7-a21c-1c355ea70a51',
-                   '2d5d852f-d9c9-48df-aa12-f6f961aeeefd'
+                   '2d5d852f-d9c9-48df-aa12-f6f961aeeefd',
+                   '3057cb4c-87e0-4fc7-a966-3f81b5d1f613',
+                   'fb5c9a8b-fe43-4e88-b5ee-5bdee095f3b3',
+                   'ddc98145-e236-45cb-b8bd-0b700e8d79e2'
                    ]
 
-review_for_3360 = ['333bc533-e92f-4c07-b36c-510c491f9e08',
+preset_3360 = ['333bc533-e92f-4c07-b36c-510c491f9e08',
                    '29ac7383-68f8-4ed5-a5da-88a72bb7f93c',
                    '085b68a9-5648-4d37-be18-8eea4758b57b',
-
+                   '771a6cb2-4338-48b7-a21c-1c355ea70a51'
                    ]
+
+preset_3091 = ['4618de2f-d3a6-4d47-ba11-094a880a4ce9']
+
+preset_3626 = ['2a800c2b-59f2-446a-af24-be58515ddf37',
+                   'b5d3cd31-2757-40ca-a80d-d678b7a0ac45'
+                   ]
+
+preset_3629 = ['5ddc6878-5233-4d14-a4f5-c9580c424502',
+                   '7dab5426-a27c-43ca-8c34-b4b7d1ee641c']
 
 
 def make_screenshot(self, img_uuid, **kwargs):
@@ -65,7 +77,7 @@ def compare_screenshot(self, image_snapshot, img_uuid, timeout: float = 4000, di
 class TestReviews:
     @allure.title('Обзоры матчей пресет=3312')
     @pytest.mark.parametrize("review_uuid",
-                             review_for_3312
+                             preset_3312
                              )
     def test_review_preset_3312(self, page, image_snapshot, review_uuid):
 
@@ -84,19 +96,29 @@ class TestReviews:
 
         page.goto(image_manager_url)
         response = page.request.get(image_manager_url)
-        if response.status == 429:
-            page.waitFor(2000)
-            page.goto(image_manager_url)
+        # if response.status == 429:
+        #     time.sleep(3)
+        #     page.goto(image_manager_url)
+        #     response = page.request.get(image_manager_url)
+        # expect(response).to_be_ok()
 
+        while response.status == 429:
+            page.goto(image_manager_url)
+            response = page.request.get(image_manager_url)
+            time.sleep(3)
         expect(response).to_be_ok()
         make_screenshot(page, img_uuid=review_uuid)
 
-        page.goto(stat_img_url)
+        while response.status == 429:
+            page.goto(stat_img_url)
+            response = page.request.get(stat_img_url)
+            time.sleep(3)
+        expect(response).to_be_ok()
         compare_screenshot(page, image_snapshot, img_uuid=review_uuid)
 
     @allure.title('Обзоры матчей пресет=3360')
     @pytest.mark.parametrize("review_uuid",
-                             review_for_3360
+                             preset_3360
                              )
     def test_review_preset_3360(self, page, image_snapshot, review_uuid):
         image_url = f"{host_url}{review_uuid}?presetId=3360&width=640&scale=2&quality=80&mediaType=webp"
