@@ -48,3 +48,5 @@ class PresetData(Enum):
 
     preset_3629 = ['5ddc6878-5233-4d14-a4f5-c9580c424502',
                    '7dab5426-a27c-43ca-8c34-b4b7d1ee641c']
+
+    preset_3100 = ['53d5cbe4-fe48-403f-93be-9648a2b370ef']
