@@ -32,15 +32,29 @@ class PresetData(Enum):
                    'b898ce16-2998-419c-8cae-9300567fd2cb',
                    'ad70ca7c-6ba5-40b8-8ce6-1dab390eda8e',
                    'fc83e8ee-0c62-4855-85ec-967720893816',
+                   '0d6d8b42-ef8f-49c3-9115-6ab872c96028',
+                   '701051e3-3cd0-4af3-88a3-e0c219bfcb79',
+                   'd96089b3-3c13-4313-96c5-a63e20ad3d02',
+                   '279e925c-9f2c-4294-9067-c7bc26f14c97',
+                   '30541d3a-8eef-44b2-bfd9-718087c90c87',
+                   'bf6d1ae7-95a5-4329-afb3-3aee5db18cb9',
+                   'e49dd27f-5556-40a6-912c-0fefef6f7fd2',
+                   '2e7f35b0-85d9-4a7d-a35b-4a15f9307ad4',
+                   '4da982b4-af3e-4cd4-a892-5f3fdf2cb219',
+
                    ]
 
     preset_3360 = ['333bc533-e92f-4c07-b36c-510c491f9e08',
                    '29ac7383-68f8-4ed5-a5da-88a72bb7f93c',
                    '085b68a9-5648-4d37-be18-8eea4758b57b',
-                   '771a6cb2-4338-48b7-a21c-1c355ea70a51'
+                   '771a6cb2-4338-48b7-a21c-1c355ea70a51',
+                   'f8dd5698-a196-4eee-bc77-a0f41b60ab66',
+                   '29ea6324-75ae-4dd2-aa10-1507d706c239'
                    ]
 
-    preset_3091 = ['4618de2f-d3a6-4d47-ba11-094a880a4ce9']
+    preset_3091 = ['4618de2f-d3a6-4d47-ba11-094a880a4ce9',
+                   'bb64fd7c-0902-41a6-a203-b3023ee97a91',
+                   'bf741bf1-9bfb-46de-bf0e-6106f4cfb414']
 
     preset_3626 = ['2a800c2b-59f2-446a-af24-be58515ddf37',
                    'b5d3cd31-2757-40ca-a80d-d678b7a0ac45'
