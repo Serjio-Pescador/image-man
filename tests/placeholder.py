@@ -2,10 +2,8 @@ import allure
 import pytest
 import os
 from dotenv import load_dotenv
-import time
-from playwright.sync_api import Page, expect
 from utils import make_screenshot, compare_screenshot
-from utils import maker_of_test_data, make_new_url_tail_rounded_width
+from utils import maker_of_test_data
 from utils import check_response
 from static.test_uuid import PlaceholderPresets
 

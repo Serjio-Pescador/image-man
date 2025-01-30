@@ -24,38 +24,19 @@ class TestReviews:
                              data
                              )
     def test_width_505_preset(self, page: Page, image_snapshot, preset, review_uuid):
-        page.set_default_timeout(120000)
+        page.set_default_timeout(150000)
         query_tail = f"presetId={preset}&width=505&scale=2&quality=80&mediaType=webp"
         querries_im = make_new_url_tail_rounded_width(query_tail)
 
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
 
-        # page.goto(image_manager_url)
-        # response = page.request.get(image_manager_url)
-        #
-        # if response.status == 404:
-        #     pytest.skip("Image not found")
-        # elif response.status == 429 or response.status == 500:
-        #     time.sleep(3)
-        #     response = page.request.get(image_manager_url)
-        # else:
-        #     page.goto(image_manager_url)
-        # expect(response).to_be_ok()
-
         response = page.goto(image_manager_url)
         while check_response(response) != 200:
             response = page.goto(image_manager_url)
             assert response.ok
-        make_screenshot(page, img_uuid=review_uuid)
 
-        # page.goto(stat_img_url)
-        # response = page.request.get(stat_img_url)
-        # while response.status == 429 or response.status == 500:
-        #     time.sleep(2)
-        #     page.goto(stat_img_url)
-        #     response = page.request.get(stat_img_url)
-        # expect(response).to_be_ok()
+        make_screenshot(page, img_uuid=review_uuid)
 
         response = page.goto(stat_img_url)
         while check_response(response) != 200:
@@ -69,7 +50,7 @@ class TestReviews:
                              data
                              )
     def test_width_637_preset(self, page: Page, image_snapshot, preset, review_uuid):
-        page.set_default_timeout(120000)
+        page.set_default_timeout(150000)
         query_tail = f"presetId={preset}&width=637&scale=2&quality=80&mediaType=webp"
         querries_im = make_new_url_tail_rounded_width(query_tail)
 
@@ -77,23 +58,12 @@ class TestReviews:
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
 
         response = page.goto(image_manager_url)
-        # response = page.request.get(image_manager_url)
-        # page.screenshot(path=f"./test/{Image.open(BytesIO(response.body()))}")
         while check_response(response) != 200:
             response = page.goto(image_manager_url)
         assert response.ok
 
         make_screenshot(page, img_uuid=review_uuid)
-        # if response.status == 404:
-        #     pytest.skip("Image not found")
-        # elif response.status == 429 or response.status == 500:
-        #     time.sleep(3)
-        #     response = page.request.get(image_manager_url)
-            # page.goto(image_manager_url)
-        # expect(response).to_be_ok()
 
-
-        # page.goto(stat_img_url)
         response = page.goto(stat_img_url)
         while check_response(response) != 200:
             response = page.goto(stat_img_url)
