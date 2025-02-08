@@ -13,7 +13,7 @@ def make_screenshot(self, img_uuid, **kwargs):
     return
 
 
-def compare_screenshot(self, image_snapshot, img_uuid, timeout: float = 2000, diff: float = 0.7, **kwargs):
+def compare_screenshot(self, image_snapshot, img_uuid, timeout: float = 2000, diff: float = 0.5, **kwargs):
     if kwargs:
         path = kwargs['src_path']
     else:
@@ -29,7 +29,7 @@ def maker_of_test_data(data_source):
     all_keys = []
     for data in (data_source):
         all_values += data.value
-        all_keys += [int(data.name.split('_')[-1])] * len(data.value)
+        all_keys += [data.name.split('_')[-1]] * len(data.value)
     return list(tuple(zip(all_keys, all_values)))
 
 
