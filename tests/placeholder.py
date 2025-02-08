@@ -28,7 +28,7 @@ class TestPlaceholders:
         response = page.goto(image_manager_url)
         while check_response(response) != 200:
             response = page.goto(image_manager_url)
-            assert response.ok
+        assert response.ok
 
         # make_screenshot(page, img_uuid=review_uuid)
         compare_screenshot(page, image_snapshot, img_uuid=review_uuid, diff=0.05, src_path='./static/layouts/')
