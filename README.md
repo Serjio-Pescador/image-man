@@ -22,3 +22,6 @@ python3 -m pytest --alluredir allure-results --clean-alluredir
 pytest --alluredir allure-results --clean-alluredir
 
 allure serve allure-results  
+
+### Типовые разрешения
+303, 606, 360, 720, ~~317, 634~~, ~~319~~, 637, 350, 700

@@ -18,6 +18,7 @@ class LinkData(Enum):
                   '[b2JzOi8vdnAtdHVzZC1wcm9kL2tsaXB5LzIwMjMtMTItMDgvREVCUlkgLSDQlNCe0KDQntCT0JjQlSDQmtCQ0JzQndCYL2NvdmVyLmpwZw]?size=1920x1080',
                   '[b2JzOi8vdnAtdHVzZC1wcm9kL2tsaXB5LzIwMjQtMDMtMjYv0L_QvtC70Y8g0LTRg9C00LrQsCAtINGB0LrRg9GH0LDRjiAo0L_RgNC-INGB0LzQtdGA0YLRjCkvY292ZXIuanBn]?width=1920',
                        '%5BaHR0cHM6Ly9jZG40Mi56dnVrLmNvbS9waWM_dHlwZT1hcnRpc3QmaWQ9Mjk0MTc2%5D',
+                       '[aHR0cHM6Ly9jZG40Mi56dnVrLmNvbS9waWM_dHlwZT1hcnRpc3QmaWQ9Mjk0MTc2]',
                        '[aHR0cHM6Ly9jZG40Mi56dnVrLmNvbS9waWM_dHlwZT1hcnRpc3QmaWQ9Mjk0MTc2]?presetid=001',
                        '[aHR0cHM6Ly9jZG41Mi56dnVrLmNvbS9waWM_dHlwZT1yZWxlYXNlJmlkPTE0NjQwNjMy]?size=300x300',
                        '[aHR0cHM6Ly9jZG41MS56dnVrLmNvbS9waWM_dHlwZT1yZWxlYXNlJmlkPTMwOTYxMjI0]',
