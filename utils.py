@@ -59,3 +59,14 @@ def check_response(response):
     elif response.status == 429 or response.status == 500:
         time.sleep(2)
     return response.status
+
+
+def remove_prefix(text, prefix):
+    if text.startswith(prefix):
+        return text[len(prefix):]
+    return text
+
+def remove_suffix(text, suffix):
+    if suffix and text.endswith(suffix):
+        return text[:-len(suffix)]
+    return text
