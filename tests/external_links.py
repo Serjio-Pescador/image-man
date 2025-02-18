@@ -6,7 +6,7 @@ import logging
 from dotenv import load_dotenv
 from utils import make_screenshot, compare_screenshot
 from utils import maker_of_test_data
-from utils import check_response
+from utils import check_response, remove_prefix, remove_suffix
 from static.link_for_test import LinkData, LinkNotValid
 
 load_dotenv()
@@ -49,6 +49,9 @@ class TestExternalLinks:
         logging.info("Link is %s: %s", kind, link)
 
         modified_link = str(link).replace('[', '').replace(']', '')
+        modified_link = remove_prefix(modified_link, "%5B")
+        modified_link = remove_suffix(modified_link, "%5D")
+
         image_manager_url = f"{host_url.replace('images/v4/', 'external/v1/')}{modified_link}"
         logging.info("IM url: %s", image_manager_url)
 
