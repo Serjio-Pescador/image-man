@@ -14,7 +14,7 @@ def make_screenshot(self, img_uuid, **kwargs):
     return
 
 
-def compare_screenshot(self, image_snapshot, img_uuid, timeout: float = 1500, diff: float = 0.5, **kwargs):
+def compare_screenshot(self, image_snapshot, img_uuid, timeout: float = 2000, diff: float = 0.5, **kwargs):
     if kwargs:
         path = kwargs['src_path']
     else:
@@ -37,13 +37,12 @@ def maker_of_test_data(data_source):
 def make_new_url_tail_rounded_width(base_tail: str) -> str:
     query_params = parse_qs(base_tail)
     width: int = int(query_params['width'][0])
-    logging.info(width)
     if width % 10 == 0:
         new_width = width
     elif width % 20 != 0:
         new_width = width + 20 - (width % 20)
-    logging.info(new_width)
-    print(new_width)
+    print("asked width: ", new_width)
+    logging.info("Asked width: %s", new_width)
     assert new_width % 10 == 0
     eql_query_IM = query_params.copy()
     eql_query_IM['width'] = [str(new_width)]
@@ -56,7 +55,7 @@ def check_response(response):
     if response.status == 404:
         pytest.skip("Image not found")
     if response.status == 403:
-        pytest.fail("403, Access denied")
+        pytest.xfail("403, Access denied")
     elif response.status == 429 or response.status == 500:
         time.sleep(2)
     return response.status

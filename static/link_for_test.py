@@ -32,3 +32,16 @@ class LinkData(Enum):
                        '[aHR0cHM6Ly9wcmUtc3RhdGljLm9ra28udHYvaW1hZ2VzL3YyL2dldFdhdGVybWFyaz9kYXRhPWh0dHBzOi8vd3d3LmZvbi5iZXQ_dXRtX3NvdXJjZT1va2tv]?presetId=7001',
                        '[aHR0cHM6Ly94bWwtZXBnc2VydmljZS5jZG52aWRlby5ydS9FUEdTZXJ2aWNlL2hzL3htbGRhdGEvZmZkYTFkNDItZTI4Zi00ZWFjLWFmMWQtMDU5NWQ5OTAyZGMvcGljLzU1MzUzMzg]',
                        ]
+
+class LinkNotValid(Enum):
+    tusd_invalid = ['test:04fa5fb2dc82fc069848bc7d9e1e273b',
+                    'tusd:04fa5fb2dc82fc069848bc7d9e1e273z',
+                    'tusd:48b538cccb3a2a94b849b719347093df']
+
+    link_invalid = ['[dGVzdDowNGZhNWZiMmRjODJmYzA2OTg0OGJjN2Q5ZTFlMjczYg]',
+                    '[dHVzZDowNGZhNWZiMmRjODJmYzA2OTg0OGJjN2Q5ZTFlMjczeg]',
+                    '[dHVzZDo0OGI1MzhjY2NiM2EyYTk0Yjg0OWI3MTkzNDcwOTNkZg]',
+                    '[aHR0cHM6Ly9jZG42Mi56dnVrLmNvbS9waWM/dHlwZT1yZWxlYXNlJmlkPTE]',
+                    '[aHR0cHM6Ly9jZG42Mi56dnVrLmNvbS9waWM/dHlwZT1yZWxlYXNlJmlkPTMzMjI3NDY=]',
+                    '[test]']
+    not_white_list = ['[aHR0cHM6Ly92ay5jb20v]']

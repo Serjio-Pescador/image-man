@@ -1,6 +1,7 @@
 import allure
 import pytest
 import os
+import logging
 from dotenv import load_dotenv
 from utils import make_screenshot, compare_screenshot
 from utils import maker_of_test_data
@@ -21,9 +22,12 @@ class TestPlaceholders:
                              )
     def test_placeholder_preset(self, page, image_snapshot, preset, review_uuid):
         page.set_default_timeout(120000)
+        logging.info("uuid: %s", review_uuid)
+
         query_tail = f"presetId={preset}&width=720"
 
         image_manager_url = f"{host_url}{review_uuid}?{query_tail}"
+        logging.info("static url: %s", image_manager_url)
 
         response = page.goto(image_manager_url)
         while check_response(response) != 200:

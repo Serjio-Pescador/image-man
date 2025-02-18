@@ -1,8 +1,8 @@
 import allure
 import pytest
-import os, requests
+import os
 from dotenv import load_dotenv
-import time
+import logging
 from playwright.sync_api import Page, expect
 from utils import make_screenshot, compare_screenshot
 from utils import maker_of_test_data, make_new_url_tail_rounded_width
@@ -18,7 +18,7 @@ data = maker_of_test_data(PresetData)
 
 
 @allure.story('Обзоры спортивных событий')
-class TestReviews:
+class TestSportReviews:
 
     @allure.title('Спорт матчи пресеты')
     @allure.story('303 ширина')
@@ -27,11 +27,17 @@ class TestReviews:
                              )
     def test_width_303_preset(self, page: Page, image_snapshot, preset, review_uuid):
         page.set_default_timeout(120000)
+        logging.info("uuid: %s", review_uuid)
+
         query_tail = f"presetId={preset}&width=303&scale=1&quality=80&mediaType=webp"
         querries_im = make_new_url_tail_rounded_width(query_tail)
 
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
+        print(stat_img_url)
+
+        logging.info("static url: %s", stat_img_url)
+        logging.info("IM url: %s", image_manager_url)
 
         response = page.goto(image_manager_url)
         while check_response(response) != 200:
@@ -54,11 +60,17 @@ class TestReviews:
                              )
     def test_width_350_preset(self, page: Page, image_snapshot, preset, review_uuid):
         page.set_default_timeout(120000)
+        logging.info("uuid: %s", review_uuid)
+
         query_tail = f"presetId={preset}&width=350&scale=1&quality=80&mediaType=webp"
         querries_im = make_new_url_tail_rounded_width(query_tail)
 
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
+
+        print(stat_img_url)
+        logging.info("static url: %s", stat_img_url)
+        logging.info("IM url: %s", image_manager_url)
 
         response = page.goto(image_manager_url)
         while check_response(response) != 200:
@@ -82,11 +94,17 @@ class TestReviews:
                              )
     def test_width_360_preset(self, page: Page, image_snapshot, preset, review_uuid):
         page.set_default_timeout(120000)
+        logging.info("uuid: %s", review_uuid)
+
         query_tail = f"presetId={preset}&width=360&scale=1&quality=80&mediaType=webp"
         querries_im = make_new_url_tail_rounded_width(query_tail)
 
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
+
+        print(stat_img_url)
+        logging.info("static url: %s", stat_img_url)
+        logging.info("IM url: %s", image_manager_url)
 
         response = page.goto(image_manager_url)
         while check_response(response) != 200:
@@ -109,11 +127,17 @@ class TestReviews:
                              )
     def test_width_505_preset(self, page: Page, image_snapshot, preset, review_uuid):
         page.set_default_timeout(120000)
+        logging.info("uuid: %s", review_uuid)
+
         query_tail = f"presetId={preset}&width=505&scale=2&quality=80&mediaType=webp"
         querries_im = make_new_url_tail_rounded_width(query_tail)
 
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
+
+        print(stat_img_url)
+        logging.info("static url: %s", stat_img_url)
+        logging.info("IM url: %s", image_manager_url)
 
         response = page.goto(image_manager_url)
         while check_response(response) != 200:
@@ -137,11 +161,17 @@ class TestReviews:
                              )
     def test_width_606_preset(self, page: Page, image_snapshot, preset, review_uuid):
         page.set_default_timeout(120000)
+        logging.info("uuid: %s", review_uuid)
+
         query_tail = f"presetId={preset}&width=606&scale=2&quality=80&mediaType=webp"
         querries_im = make_new_url_tail_rounded_width(query_tail)
 
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
+
+        print(stat_img_url)
+        logging.info("static url: %s", stat_img_url)
+        logging.info("IM url: %s", image_manager_url)
 
         response = page.goto(image_manager_url)
         while check_response(response) != 200:
@@ -165,11 +195,17 @@ class TestReviews:
                              )
     def test_width_637_preset(self, page: Page, image_snapshot, preset, review_uuid):
         page.set_default_timeout(120000)
+        logging.info("uuid: %s", review_uuid)
+
         query_tail = f"presetId={preset}&width=637&scale=2&quality=80&mediaType=webp"
         querries_im = make_new_url_tail_rounded_width(query_tail)
 
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
+
+        print(stat_img_url)
+        logging.info("static url: %s", stat_img_url)
+        logging.info("IM url: %s", image_manager_url)
 
         response = page.goto(image_manager_url)
         while check_response(response) != 200:
@@ -192,11 +228,17 @@ class TestReviews:
                              )
     def test_width_700_preset(self, page: Page, image_snapshot, preset, review_uuid):
         page.set_default_timeout(120000)
+        logging.info("uuid: %s", review_uuid)
+
         query_tail = f"presetId={preset}&width=700&scale=2&quality=80&mediaType=webp"
         querries_im = make_new_url_tail_rounded_width(query_tail)
 
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
+
+        print(stat_img_url)
+        logging.info("static url: %s", stat_img_url)
+        logging.info("IM url: %s", image_manager_url)
 
         response = page.goto(image_manager_url)
         while check_response(response) != 200:
@@ -220,11 +262,17 @@ class TestReviews:
                              )
     def test_width_720_preset(self, page: Page, image_snapshot, preset, review_uuid):
         page.set_default_timeout(120000)
+        logging.info("uuid: %s", review_uuid)
+
         query_tail = f"presetId={preset}&width=720&scale=2&quality=80&mediaType=webp"
         querries_im = make_new_url_tail_rounded_width(query_tail)
 
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
+
+        print(stat_img_url)
+        logging.info("static url: %s", stat_img_url)
+        logging.info("IM url: %s", image_manager_url)
 
         response = page.goto(image_manager_url)
         while check_response(response) != 200:
