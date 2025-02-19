@@ -49,7 +49,11 @@ class PresetData(Enum):
                    'b4611a67-2028-4abb-9e54-6dfd3d9b1b3d',
                    '373eb649-f3b4-4df8-8354-7dbe07e4eaaf',
                    'e6f88faf-981d-4319-9691-95711a570028',
-                   'df238a26-b861-4fd9-8d2d-09de1fc8786a']
+                   'df238a26-b861-4fd9-8d2d-09de1fc8786a',
+                   '48a38c5f-de9d-4df4-a2ad-4aa01f5f2b60',
+                   '4907aa63-8a4e-4396-9985-e3e89e247e19',
+                   '66db8b20-b28f-49b5-a329-0e49eec5f1cd',
+                   '06577504-fd25-4110-bdb8-3352b477480b']
     preset_3360 = ['333bc533-e92f-4c07-b36c-510c491f9e08',
                    '29ac7383-68f8-4ed5-a5da-88a72bb7f93c',
                    '085b68a9-5648-4d37-be18-8eea4758b57b',
@@ -65,7 +69,10 @@ class PresetData(Enum):
                    'e04cb1e0-738d-42d7-91ad-2ecca311de75',
                    'c20b7720-6ea2-4363-bbbc-accd74c6bb12',
                    'edd4a7b8-c453-4c86-bf21-13858dd6e1b7',
-                   '231f5fbc-2a93-4ad3-8053-467087039c67']
+                   '231f5fbc-2a93-4ad3-8053-467087039c67',
+                   'd9c7c4cd-df4a-4110-91a8-52e9c446716e',
+                   'ffb6872b-7783-4560-a876-06d403650c18',
+                   ]
     preset_3091 = ['4618de2f-d3a6-4d47-ba11-094a880a4ce9',
                    'bb64fd7c-0902-41a6-a203-b3023ee97a91',
                    'bf741bf1-9bfb-46de-bf0e-6106f4cfb414',
@@ -102,8 +109,7 @@ class PresetData(Enum):
                    'b4b1473e-8f84-44cf-a522-93ed841683d6',
                    '2aeb7ee3-1e9f-47b2-803d-4b1316cd7085',
                    'a79fff85-033e-44c2-884a-ba8d5f988a17',
-                   '0ec2a0db-2f0b-40ac-b935-31a5e764cd9f',
-                   'c3873001-5d52-432f-8ae6-f30aaa574926']
+                   '0ec2a0db-2f0b-40ac-b935-31a5e764cd9f']
     preset_3629 = ['5ddc6878-5233-4d14-a4f5-c9580c424502',
                    '7dab5426-a27c-43ca-8c34-b4b7d1ee641c',
                    'c557c62a-b8be-41ba-8b4c-4ce2a55ae85a',
@@ -117,7 +123,8 @@ class PresetData(Enum):
                    '22719264-37e0-4185-80f1-2f50d7711c6d',
                    '5d5a2767-40f1-403c-8218-041b660d0b73',
                    '8783afd4-0ea5-4e02-b8b8-4c86e0d94ff1',
-                   '0e2a0ad9-f87d-4ebe-9216-82731aecc8f3']
+                   '0e2a0ad9-f87d-4ebe-9216-82731aecc8f3',
+                   '87324212-64b3-40a4-b6ef-d3e552e04833']
     preset_3100 = ['53d5cbe4-fe48-403f-93be-9648a2b370ef']
     preset_3228 = ['f7308968-f329-4978-adce-d817e4c0bc93',
                    'f959da93-2b0d-4a0f-89e9-104fde9efc4f',
@@ -143,3 +150,16 @@ class PlaceholderPresets(Enum):
     preset_3131 = ['057a97ba-c641-40c8-9d8c-c2b10e8e14e1',
                    '0f59184b-bc6c-4491-9b80-0731c35a50bb',
                    '28cec8d2-8d6b-4e65-9350-a39fb0b0f660']
+
+class TVchannels(Enum):
+    tv_presets = [6401, 6405, 6416, 6425, 6429, 6440, 6451, 6455, 6466, 6475, 6484, 6491, 6525, 6534, 6541, 6552, 6559]
+    tv_channel = ['3f20a7b7-62c3-4307-9b99-69cda434bad6',
+                  '380ff414-7f87-4361-8124-dd0c73589693',
+                  'c299b060-ca10-4c72-a099-974158ae5518',
+                  '5db40733-ed15-4de8-aa55-84b3303d13d8',
+                  'a1a1fa9f-8900-4166-99ef-5d2576176f65',
+                  '79b91075-60b6-47f9-b830-c24cbd72538f',
+                  'b221e268-f5e5-459f-9b10-81abb7b1afd1',
+                  'ad0e6957-909c-4043-aed2-3f48994fac8e',
+                  'e5288983-855e-44bf-a6d5-10bd903a4008',
+                  'e09d2800-8636-45ad-a77d-83593504bec0']

@@ -16,6 +16,7 @@ host_url = os.getenv("HOST")
 data = maker_of_test_data(LinkData)
 invalid_data = maker_of_test_data(LinkNotValid)
 
+
 @allure.story('Внешние ссылки')
 class TestExternalLinks:
     @allure.title('Доступы в по внешним ключам и ссылкам OLD')
@@ -38,7 +39,7 @@ class TestExternalLinks:
         assert response.ok
 
         # make_screenshot(page, img_uuid=name_file)
-        compare_screenshot(page, image_snapshot, img_uuid=link_hash, timeout=3000, diff=0.3, src_path='./static/layouts/')
+        compare_screenshot(page, image_snapshot, img_uuid=link_hash, timeout=3000, diff=0.3)
 
     @allure.title('Доступы в по внешним ключам и ссылкам NEW')
     @pytest.mark.parametrize("kind, link",
@@ -63,8 +64,7 @@ class TestExternalLinks:
         assert response.ok
 
         # make_screenshot(page, img_uuid=link_hash)
-        compare_screenshot(page, image_snapshot, img_uuid=link_hash, timeout=3000, diff=0.3, src_path='./static/layouts/')
-
+        compare_screenshot(page, image_snapshot, img_uuid=link_hash, timeout=3000, diff=0.3)
 
     @allure.title('Доступы в по внешним ключам и ссылкам невалидные значения')
     # @pytest.mark.xfail

@@ -3,7 +3,7 @@ import pytest
 import os
 from dotenv import load_dotenv
 import logging
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 from utils import make_screenshot, compare_screenshot
 from utils import maker_of_test_data, make_new_url_tail_rounded_width
 from utils import check_response
@@ -17,7 +17,7 @@ static_url = os.getenv("STATIC_URL")
 data = maker_of_test_data(PresetData)
 
 
-@allure.story('Обзоры спортивных событий')
+# @allure.story('Обзоры спортивных событий')
 class TestSportReviews:
 
     @allure.title('Спорт матчи пресеты')
@@ -34,7 +34,6 @@ class TestSportReviews:
 
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
-        print(stat_img_url)
 
         logging.info("static url: %s", stat_img_url)
         logging.info("IM url: %s", image_manager_url)
@@ -68,7 +67,6 @@ class TestSportReviews:
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
 
-        print(stat_img_url)
         logging.info("static url: %s", stat_img_url)
         logging.info("IM url: %s", image_manager_url)
 
@@ -102,7 +100,6 @@ class TestSportReviews:
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
 
-        print(stat_img_url)
         logging.info("static url: %s", stat_img_url)
         logging.info("IM url: %s", image_manager_url)
 
@@ -135,7 +132,6 @@ class TestSportReviews:
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
 
-        print(stat_img_url)
         logging.info("static url: %s", stat_img_url)
         logging.info("IM url: %s", image_manager_url)
 
@@ -169,7 +165,6 @@ class TestSportReviews:
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
 
-        print(stat_img_url)
         logging.info("static url: %s", stat_img_url)
         logging.info("IM url: %s", image_manager_url)
 
@@ -203,7 +198,6 @@ class TestSportReviews:
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
 
-        print(stat_img_url)
         logging.info("static url: %s", stat_img_url)
         logging.info("IM url: %s", image_manager_url)
 
@@ -236,7 +230,6 @@ class TestSportReviews:
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
 
-        print(stat_img_url)
         logging.info("static url: %s", stat_img_url)
         logging.info("IM url: %s", image_manager_url)
 
@@ -270,7 +263,6 @@ class TestSportReviews:
         image_manager_url = f"{host_url}{review_uuid}?{querries_im}"
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
 
-        print(stat_img_url)
         logging.info("static url: %s", stat_img_url)
         logging.info("IM url: %s", image_manager_url)
 

@@ -3,7 +3,6 @@ import os
 from PIL import Image
 from io import BytesIO
 from urllib.parse import parse_qs
-from static.test_uuid import PresetData
 import pytest, time
 from playwright.sync_api import Page
 
@@ -37,13 +36,14 @@ def maker_of_test_data(data_source):
 def make_new_url_tail_rounded_width(base_tail: str) -> str:
     query_params = parse_qs(base_tail)
     width: int = int(query_params['width'][0])
+
     if width % 10 == 0:
         new_width = width
     elif width % 20 != 0:
         new_width = width + 20 - (width % 20)
-    print("asked width: ", new_width)
     logging.info("Asked width: %s", new_width)
     assert new_width % 10 == 0
+
     eql_query_IM = query_params.copy()
     eql_query_IM['width'] = [str(new_width)]
 
@@ -53,6 +53,7 @@ def make_new_url_tail_rounded_width(base_tail: str) -> str:
 
 def check_response(response):
     if response.status == 404:
+        logging.error("404, Image not found")
         pytest.skip("Image not found")
     if response.status == 403:
         pytest.xfail("403, Access denied")
@@ -65,6 +66,7 @@ def remove_prefix(text, prefix):
     if text.startswith(prefix):
         return text[len(prefix):]
     return text
+
 
 def remove_suffix(text, suffix):
     if suffix and text.endswith(suffix):
