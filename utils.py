@@ -10,7 +10,7 @@ from playwright.sync_api import Page
 from pathlib import Path
 
 def make_screenshot(self, img_uuid, **kwargs):
-    test_name = os.environ.get('PYTEST_CURRENT_TEST').split(':')[-1].split('[')[0]
+    test_name = os.environ.get('PYTEST_CURRENT_TEST').split('::')[-1].split('[')[0]
     self.screenshot(path=f"./screenshots/{test_name}_{img_uuid}.png", **kwargs)
     return
 
@@ -20,18 +20,24 @@ def compare_screenshot(self, image_snapshot, img_uuid, timeout: float = 2000, di
         path = kwargs['src_path']
     else:
         path = './screenshots/'
-    test_name = os.environ.get('PYTEST_CURRENT_TEST').split(':')[-1].split('[')[0]
-    screenshot = Image.open(BytesIO(self.screenshot(timeout=timeout)))
-    allure.attach.file(
-        str(f"{path}{test_name}_{img_uuid}.png"),
-        name=f"{test_name}_{img_uuid}.png",
-        attachment_type=allure.attachment_type.PNG,
-    )
+    test_name = os.environ.get('PYTEST_CURRENT_TEST').split('::')[-1].split('[')[0]
+    screenshot = Image.open(BytesIO(self.screenshot(timeout=timeout, type='png')))
+
+    try:
+        allure.attach.file(
+            str(f"{path}{test_name}_{img_uuid}.png"),
+            name=f"{test_name}_{img_uuid}.png",
+            attachment_type=allure.attachment_type.PNG,
+        )
+    except Exception as e:
+        # logging.exception("%s", e)
+        logging.info("The snapshot not found in screenshots.")
 
     try:
         image_snapshot(screenshot, f"{path}{test_name}_{img_uuid}.png", diff)
     except Exception as e:
-        logging.error(e)
+        # logging.error("Image does not match the snapshot stored in screenshots.", e)
+        logging.error("Image does not match the snapshot stored in screenshots.")
         allure.attach.file(
             str(f"{path}{test_name}_{img_uuid}.new.png"),
             name=f"{test_name}_{img_uuid}.new.png",
@@ -75,7 +81,7 @@ def make_new_url_tail_rounded_width(base_tail: str) -> str:
 
 def check_response(response):
     if response.status == 404:
-        logging.warning("404, Image not found.\n %s", response.data)
+        logging.warning("404, Image not found.")
         pytest.skip("Image not found")
     if response.status == 403:
         pytest.xfail("403, Access denied")

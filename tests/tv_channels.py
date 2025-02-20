@@ -15,12 +15,12 @@ host_url = os.getenv("HOST")
 static_url = os.getenv("STATIC_URL")
 
 
-@allure.story('ТВ каналы')
+@allure.story('ТВ каналы - height=72')
 class TestTvChannels:
 
-    @allure.title('72 высота')
     @pytest.mark.parametrize("preset", TVchannels.tv_presets.value)
     @pytest.mark.parametrize("tv_channel_uuid", TVchannels.tv_channel.value)
+    @allure.title("{tv_channel_uuid} - {preset}")
     def test_tv_preset(self, page: Page, image_snapshot, preset, tv_channel_uuid):
         page.set_default_timeout(90000)
         logging.info("TV channel uuid: %s", tv_channel_uuid)

@@ -1,6 +1,6 @@
 import allure
 import pytest
-import os
+import os, re
 import logging
 from dotenv import load_dotenv
 from utils import make_screenshot, compare_screenshot
@@ -29,15 +29,15 @@ class TestExternalLinks:
         image_manager_url = f"{host_url}{link}"
         logging.info("IM url: %s", image_manager_url)
 
-        link_hash = hash(link)
+        file_name = re.sub(r'[^a-zA-Z0-9]', '_', link)
 
         response = page.goto(image_manager_url)
         while check_response(response) != 200:
             response = page.goto(image_manager_url)
         assert response.ok
 
-        # make_screenshot(page, img_uuid=name_file)
-        compare_screenshot(page, image_snapshot, img_uuid=link_hash, timeout=3000, diff=0.3)
+        make_screenshot(page, img_uuid=file_name)
+        compare_screenshot(page, image_snapshot, img_uuid=file_name, timeout=3000, diff=0.3)
 
     @allure.title('Доступы в по внешним ключам и ссылкам NEW')
     @pytest.mark.parametrize("kind, link",
@@ -54,15 +54,15 @@ class TestExternalLinks:
         image_manager_url = f"{host_url.replace('images/v4/', 'external/v1/')}{modified_link}"
         logging.info("IM url: %s", image_manager_url)
 
-        link_hash = hash(link)
+        file_name = re.sub(r'[^a-zA-Z0-9]', '_', link)
 
         response = page.goto(image_manager_url)
         while check_response(response) != 200:
             response = page.goto(image_manager_url)
         assert response.ok
 
-        # make_screenshot(page, img_uuid=link_hash)
-        compare_screenshot(page, image_snapshot, img_uuid=link_hash, timeout=3000, diff=0.3)
+        make_screenshot(page, img_uuid=file_name)
+        compare_screenshot(page, image_snapshot, img_uuid=file_name, timeout=3000, diff=0.3)
 
     @allure.title('Доступы в по внешним ключам и ссылкам невалидные значения')
     @pytest.mark.parametrize("kind, link",

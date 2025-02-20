@@ -14,7 +14,8 @@ pytest tests/letterspacing.py --image-snapshot-save-diff -v --alluredir allure-r
 pytest tests/letterspacing.py --image-snapshot-save-diff -vv --alluredir allure-results  
 
 python3 -m pytest tests/letterspacing.py -n 6 --image-snapshot-save-diff --alluredir allure-results -v
-
+python3 -m pytest tests/tv_channels.py -n 4 --image-snapshot-save-diff --alluredir allure-results
+python3 -m pytest tests/* --image-snapshot-save-diff --alluredir allure-results -n 4   
 
 
 ### Allure
@@ -23,5 +24,3 @@ pytest --alluredir allure-results --clean-alluredir
 
 allure serve allure-results  
 
-### Типовые размеры картинок
-303, 606, 360, 720, ~~317, 634~~, ~~319~~, 637, 350, 700

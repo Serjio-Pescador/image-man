@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class WidthSportReview(Enum):
-    required_width = [303, 350, 360, 606, 637, 700, 720]
+    required_width = [303, 350, 360, 505, 606, 637, 700, 720]
 
 
 class PresetData(Enum):
@@ -84,7 +84,8 @@ class PresetData(Enum):
                    '494e5373-e148-464c-9448-ec34de6b379e',
                    '088c24ec-fb15-4ff3-995d-372227ac95c1',
                    '6bdd9033-910b-4417-96ca-5f646d342620',
-                   '45d9bc06-a114-4f05-a674-5f537e9e8a6b']
+                   '45d9bc06-a114-4f05-a674-5f537e9e8a6b',
+                   '7f422e87-41d6-43a0-8785-71baa05323e9']
     preset_3626 = ['2a800c2b-59f2-446a-af24-be58515ddf37',
                    'b5d3cd31-2757-40ca-a80d-d678b7a0ac45',
                    'cd7d1f18-f2d4-43e5-9977-a19416089169',
@@ -109,7 +110,10 @@ class PresetData(Enum):
                    'b4b1473e-8f84-44cf-a522-93ed841683d6',
                    '2aeb7ee3-1e9f-47b2-803d-4b1316cd7085',
                    'a79fff85-033e-44c2-884a-ba8d5f988a17',
-                   '0ec2a0db-2f0b-40ac-b935-31a5e764cd9f']
+                   '0ec2a0db-2f0b-40ac-b935-31a5e764cd9f',
+                   '667493d8-f4f9-413f-826c-6391d44f22e7',
+                   '628f8720-5b96-4e39-98d7-601085745e0d',
+                   '5b5e7c35-cf18-4a00-acf8-2f71adb0b866']
     preset_3629 = ['5ddc6878-5233-4d14-a4f5-c9580c424502',
                    '7dab5426-a27c-43ca-8c34-b4b7d1ee641c',
                    'c557c62a-b8be-41ba-8b4c-4ce2a55ae85a',
@@ -147,6 +151,9 @@ class PlaceholderPresets(Enum):
     preset_3131 = ['057a97ba-c641-40c8-9d8c-c2b10e8e14e1',
                    '0f59184b-bc6c-4491-9b80-0731c35a50bb',
                    '28cec8d2-8d6b-4e65-9350-a39fb0b0f660']
+
+class ReviewShort(Enum):
+    preset_3380 = ['f9985145-c6d7-4d83-a85a-7c9cda10907f']
 
 class TVchannels(Enum):
     tv_presets = [6401, 6405, 6416, 6425, 6429, 6440, 6451, 6455, 6466, 6475, 6484, 6491, 6525, 6534, 6541, 6552, 6559]
