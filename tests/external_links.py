@@ -1,4 +1,3 @@
-import sys
 import allure
 import pytest
 import os
@@ -30,7 +29,6 @@ class TestExternalLinks:
         image_manager_url = f"{host_url}{link}"
         logging.info("IM url: %s", image_manager_url)
 
-        test_name = os.environ.get('PYTEST_CURRENT_TEST').split(':')[-1].split('[')[0]
         link_hash = hash(link)
 
         response = page.goto(image_manager_url)
@@ -67,7 +65,6 @@ class TestExternalLinks:
         compare_screenshot(page, image_snapshot, img_uuid=link_hash, timeout=3000, diff=0.3)
 
     @allure.title('Доступы в по внешним ключам и ссылкам невалидные значения')
-    # @pytest.mark.xfail
     @pytest.mark.parametrize("kind, link",
                              invalid_data
                              )

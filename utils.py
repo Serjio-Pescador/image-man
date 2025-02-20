@@ -1,11 +1,13 @@
 import logging
 import os
+
+import allure
 from PIL import Image
 from io import BytesIO
 from urllib.parse import parse_qs
 import pytest, time
 from playwright.sync_api import Page
-
+from pathlib import Path
 
 def make_screenshot(self, img_uuid, **kwargs):
     test_name = os.environ.get('PYTEST_CURRENT_TEST').split(':')[-1].split('[')[0]
@@ -20,7 +22,22 @@ def compare_screenshot(self, image_snapshot, img_uuid, timeout: float = 2000, di
         path = './screenshots/'
     test_name = os.environ.get('PYTEST_CURRENT_TEST').split(':')[-1].split('[')[0]
     screenshot = Image.open(BytesIO(self.screenshot(timeout=timeout)))
-    image_snapshot(screenshot, f"{path}{test_name}_{img_uuid}.png", diff)
+
+    try:
+        image_snapshot(screenshot, f"{path}{test_name}_{img_uuid}.png", diff)
+    except Exception as e:
+        logging.error(e)
+        allure.attach.file(
+            str(f"{path}{test_name}_{img_uuid}.new.png"),
+            name=f"{test_name}_{img_uuid}.new.png",
+            attachment_type=allure.attachment_type.PNG,
+        )
+        allure.attach.file(
+            str(f"{path}{test_name}_{img_uuid}.diff.png"),
+            name=f"{test_name}_{img_uuid}.diff.png",
+            attachment_type=allure.attachment_type.PNG,
+        )
+        pytest.fail("Image does not match the snapshot stored in screenshots.", e)
     return
 
 
@@ -53,7 +70,7 @@ def make_new_url_tail_rounded_width(base_tail: str) -> str:
 
 def check_response(response):
     if response.status == 404:
-        logging.error("404, Image not found")
+        logging.warning("404, Image not found.\n %s", response.data)
         pytest.skip("Image not found")
     if response.status == 403:
         pytest.xfail("403, Access denied")
