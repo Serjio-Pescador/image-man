@@ -16,17 +16,16 @@ data = maker_of_test_data(PlaceholderPresets)
 
 @allure.story('Плейсхолдеры имен')
 class TestPlaceholders:
-    @allure.title('Плейсхолдеры инициалов')
-    @pytest.mark.parametrize("preset, review_uuid",
-                             data
-                             )
-    def test_placeholder_preset(self, page, image_snapshot, preset, review_uuid):
+
+    @pytest.mark.parametrize("preset, name_uuid", data)
+    @allure.title("{name_uuid} - {preset}")
+    def test_placeholder_preset(self, page, image_snapshot, preset, name_uuid):
         page.set_default_timeout(120000)
-        logging.info("uuid: %s", review_uuid)
+        logging.info("uuid: %s", name_uuid)
 
         query_tail = f"presetId={preset}&width=720"
 
-        image_manager_url = f"{host_url}{review_uuid}?{query_tail}"
+        image_manager_url = f"{host_url}{name_uuid}?{query_tail}"
         logging.info("static url: %s", image_manager_url)
 
         response = page.goto(image_manager_url)
@@ -35,4 +34,4 @@ class TestPlaceholders:
         assert response.ok
 
         # make_screenshot(page, img_uuid=review_uuid)
-        compare_screenshot(page, image_snapshot, img_uuid=review_uuid, diff=0.05, src_path='./static/layouts/')
+        compare_screenshot(page, image_snapshot, img_uuid=name_uuid, diff=0.05, src_path='./static/layouts/')

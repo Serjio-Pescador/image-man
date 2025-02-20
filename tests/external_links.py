@@ -16,9 +16,9 @@ data = maker_of_test_data(LinkData)
 invalid_data = maker_of_test_data(LinkNotValid)
 
 
-@allure.story('Внешние ссылки')
+@allure.story('Внешние ссылки и ключи')
 class TestExternalLinks:
-    @allure.title('Доступы в по внешним ключам и ссылкам OLD')
+    @allure.title('External link/key OLD')
     @pytest.mark.parametrize("kind, link",
                              data
                              )
@@ -32,14 +32,16 @@ class TestExternalLinks:
         file_name = re.sub(r'[^a-zA-Z0-9]', '_', link)
 
         response = page.goto(image_manager_url)
+        page.wait_for_load_state('domcontentloaded')
         while check_response(response) != 200:
             response = page.goto(image_manager_url)
+            page.wait_for_load_state('domcontentloaded')
         assert response.ok
 
-        make_screenshot(page, img_uuid=file_name)
+        # make_screenshot(page, img_uuid=file_name, timeout=6000)
         compare_screenshot(page, image_snapshot, img_uuid=file_name, timeout=3000, diff=0.3)
 
-    @allure.title('Доступы в по внешним ключам и ссылкам NEW')
+    @allure.title('External link/key NEW')
     @pytest.mark.parametrize("kind, link",
                              data
                              )
@@ -57,18 +59,20 @@ class TestExternalLinks:
         file_name = re.sub(r'[^a-zA-Z0-9]', '_', link)
 
         response = page.goto(image_manager_url)
+        page.wait_for_load_state('domcontentloaded')
         while check_response(response) != 200:
             response = page.goto(image_manager_url)
+            page.wait_for_load_state('domcontentloaded')
         assert response.ok
 
-        make_screenshot(page, img_uuid=file_name)
+        # make_screenshot(page, img_uuid=file_name, timeout=6000)
         compare_screenshot(page, image_snapshot, img_uuid=file_name, timeout=3000, diff=0.3)
 
-    @allure.title('Доступы в по внешним ключам и ссылкам невалидные значения')
+    @allure.title('External link/key Invalid')
     @pytest.mark.parametrize("kind, link",
                              invalid_data
                              )
-    def test_external_link_not_valid(self, page, kind, link):
+    def test_external_link_invalid(self, page, kind, link):
         logging.info("Link is %s: %s", kind, link)
 
         modified_link = str(link).replace('[', '').replace(']', '')
