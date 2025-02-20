@@ -22,6 +22,11 @@ def compare_screenshot(self, image_snapshot, img_uuid, timeout: float = 2000, di
         path = './screenshots/'
     test_name = os.environ.get('PYTEST_CURRENT_TEST').split(':')[-1].split('[')[0]
     screenshot = Image.open(BytesIO(self.screenshot(timeout=timeout)))
+    allure.attach.file(
+        str(f"{path}{test_name}_{img_uuid}.png"),
+        name=f"{test_name}_{img_uuid}.png",
+        attachment_type=allure.attachment_type.PNG,
+    )
 
     try:
         image_snapshot(screenshot, f"{path}{test_name}_{img_uuid}.png", diff)

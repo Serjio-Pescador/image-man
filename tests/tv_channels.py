@@ -43,8 +43,10 @@ class TestTvChannels:
         make_screenshot(page, img_uuid=name_screenshot)
 
         response = page.goto(stat_img_url)
+        page.wait_for_load_state('domcontentloaded')
         while check_response(response) != 200:
             response = page.goto(stat_img_url)
+            page.wait_for_load_state('domcontentloaded')
         assert response.ok
 
         compare_screenshot(page, image_snapshot, img_uuid=name_screenshot, timeout=3000)
