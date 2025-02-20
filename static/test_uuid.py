@@ -1,6 +1,10 @@
 from enum import Enum
 
 
+class WidthSportReview(Enum):
+    required_width = [303, 350, 360, 606, 637, 700, 720]
+
+
 class PresetData(Enum):
     preset_3312 = ['fe8374ab-45b3-485d-aef0-3f5513c8695c',
                    'ddd33772-c71d-4160-b9ba-6b2a05f0125a',
@@ -90,12 +94,9 @@ class PresetData(Enum):
                    'e1bad081-400a-4792-9410-3d95d20b7d85',
                    'e031b32e-76eb-48b9-a697-0b0e4db94dbe',
                    'bc75ace6-65c4-449d-8b26-742f9924da14',
-                   '068d0b6d-54bc-4737-9894-c55888150b6c',
-                   'ce6d13ad-6afb-4833-8672-7cbdee2e688d',
                    '2d7ec466-5489-49c1-9c7a-1dd2d9866be6',
                    '6c11c629-0a96-4643-95ce-7e6278543b7a',
                    'e9ed018b-ceb1-4497-9e46-83b125a500d2',
-                   'c5548de6-f617-4a07-8666-f6986d3da16b',
                    'c8ec8738-35a7-456a-ba34-a190eeade611',
                    '7dfe2fa4-0634-4c36-9196-a32d6b112336',
                    '2bbfe64b-d832-4e81-a72a-e05b3a2ea05d',
@@ -103,7 +104,6 @@ class PresetData(Enum):
                    '929a06a6-ff35-4f7c-af77-48df0a4bbae8',
                    '94e41e3c-dddf-4865-b8e5-fb3f791653f1',
                    'd9d7b335-df20-47dc-b7fd-8fb661a586d7',
-                   'f3cb87e9-ad06-49fb-8274-5e7ae6f775a5',
                    'e0075924-0a2d-4fec-bea4-0d6334f10243',
                    'a96c0e37-a4ac-4c30-bca0-e3c24dbc7051',
                    'b4b1473e-8f84-44cf-a522-93ed841683d6',
@@ -121,13 +121,10 @@ class PresetData(Enum):
                    '3b4c042f-30dd-4395-9e17-85afa97a9393',
                    '02263ee9-2b00-4459-b806-922822d6b12f',
                    '22719264-37e0-4185-80f1-2f50d7711c6d',
-                   '5d5a2767-40f1-403c-8218-041b660d0b73',
                    '8783afd4-0ea5-4e02-b8b8-4c86e0d94ff1',
-                   '0e2a0ad9-f87d-4ebe-9216-82731aecc8f3',
                    '87324212-64b3-40a4-b6ef-d3e552e04833']
     preset_3100 = ['53d5cbe4-fe48-403f-93be-9648a2b370ef']
     preset_3228 = ['f7308968-f329-4978-adce-d817e4c0bc93',
-                   'f959da93-2b0d-4a0f-89e9-104fde9efc4f',
                    '1663a980-5432-4830-a38f-ebf829293ca9',
                    '5e1d11e4-128f-4a84-acc2-9917050b4f5f']
 
