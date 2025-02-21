@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class WidthSportReview(Enum):
-    required_width = [303, 350, 360, 505, 606, 637, 700, 720]
+    required_width = [173, 220, 226, 253, 273, 299, 312, 348, 360, 387, 434, 440, 505, 540, 584, 606, 637, 683, 700, 720]
 
 
 class PresetData(Enum):
@@ -57,7 +57,8 @@ class PresetData(Enum):
                    '48a38c5f-de9d-4df4-a2ad-4aa01f5f2b60',
                    '4907aa63-8a4e-4396-9985-e3e89e247e19',
                    '66db8b20-b28f-49b5-a329-0e49eec5f1cd',
-                   '06577504-fd25-4110-bdb8-3352b477480b']
+                   '06577504-fd25-4110-bdb8-3352b477480b',
+                   '508014cc-ee01-4bf4-8984-9776d32f56cb']
     preset_3360 = ['333bc533-e92f-4c07-b36c-510c491f9e08',
                    '29ac7383-68f8-4ed5-a5da-88a72bb7f93c',
                    '085b68a9-5648-4d37-be18-8eea4758b57b',
