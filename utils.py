@@ -31,8 +31,9 @@ def compare_screenshot(self, image_snapshot, img_uuid, timeout: float = 2000, di
         )
     except Exception as e:
         # logging.exception("%s", e)
-        make_screenshot(self, img_uuid=f"{path}{test_name}_{img_uuid}.png", timeout=timeout)
         logging.info("The snapshot not found in screenshots.")
+        make_screenshot(self, img_uuid=f"{path}{test_name}_{img_uuid}.png", timeout=timeout)
+
 
     try:
         image_snapshot(screenshot, f"{path}{test_name}_{img_uuid}.png", diff)
