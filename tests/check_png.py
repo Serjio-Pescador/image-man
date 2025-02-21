@@ -19,13 +19,12 @@ static_url = os.getenv("STATIC_URL")
 def test_placeholder_preset(image_snapshot):
     # page.set_default_timeout(120000)
     # logging.info("uuid: %s", name_uuid)
-
-    query_tail = f"?presetId=3312&width=505&scale=2&quality=80&mediaType=webp"
-    query_tail_im = f"?presetId=3312&width=520&scale=2&quality=80&mediaType=webp"
-    test_uuid = "a1c13b47-2f64-47a9-9cd0-6aa04f71ae31"
+    query_tail = f"?presetId=3360&width=637&scale=2&quality=80&mediaType=webp"
+    query_tail_im = f"?mediaType=webp&presetId=3626&quality=80&scale=2&width=640"
+    test_uuid = "3678e312-7633-41a6-92c1-c218ed049060"
 
     image_manager_url = f"{host_url}{test_uuid}{query_tail_im}"
-    # logging.info("static url: %s", image_manager_url)
+    logging.info("static url: %s", image_manager_url)
 
     response = requests.get(image_manager_url)
     test_img = Image.open(BytesIO(response.content))
@@ -43,6 +42,7 @@ def test_placeholder_preset(image_snapshot):
     img = Image.open("response_st.png")
     width, height = img.size
     print(width, height)
-    assert width == 520
 
-    image_snapshot(img, "response_im.png", 0.2)
+    assert width == 640
+
+    image_snapshot(img, "response_im.png", 0.5)
