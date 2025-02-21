@@ -20,9 +20,11 @@ def test_placeholder_preset(image_snapshot):
     # page.set_default_timeout(120000)
     # logging.info("uuid: %s", name_uuid)
 
-    query_tail = f"presetId=3380&width=720"
+    query_tail = f"?presetId=3312&width=505&scale=2&quality=80&mediaType=webp"
+    query_tail_im = f"?presetId=3312&width=520&scale=2&quality=80&mediaType=webp"
+    test_uuid = "a1c13b47-2f64-47a9-9cd0-6aa04f71ae31"
 
-    image_manager_url = f"{host_url}f9985145-c6d7-4d83-a85a-7c9cda10907f?{query_tail}"
+    image_manager_url = f"{host_url}{test_uuid}{query_tail_im}"
     # logging.info("static url: %s", image_manager_url)
 
     response = requests.get(image_manager_url)
@@ -31,9 +33,16 @@ def test_placeholder_preset(image_snapshot):
         f.write(response.content)
     assert response.ok
 
-    stat_img_url = f"{static_url}f9985145-c6d7-4d83-a85a-7c9cda10907f?{query_tail}"
+    stat_img_url = f"{static_url}{test_uuid}{query_tail}"
     stat_img = requests.get(stat_img_url).content
-    with open("response_st.png", "wb") as f:
+
+    name_static = "response_st.png"
+    with open(name_static, "wb") as f:
         f.write(stat_img)
 
-    image_snapshot(Image.open(BytesIO(stat_img)), f"response_im.png", 0.2)
+    img = Image.open("response_st.png")
+    width, height = img.size
+    print(width, height)
+    assert width == 520
+
+    image_snapshot(img, "response_im.png", 0.2)
