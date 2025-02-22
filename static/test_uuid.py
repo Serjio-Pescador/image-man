@@ -2,7 +2,8 @@ from enum import Enum
 
 
 class WidthSportReview(Enum):
-    required_width = [173, 220, 226, 253, 273, 299, 312, 348, 360, 387, 434, 440, 505, 540, 584, 606, 637, 683, 700, 720]
+    required_width = [173, 220, 226, 253, 273, 299, 312, 348, 360, 387, 408, 434, 505, 540, 584, 606, 637, 683, 700,
+                      720]
 
 
 class PresetData(Enum):
@@ -76,8 +77,7 @@ class PresetData(Enum):
                    'edd4a7b8-c453-4c86-bf21-13858dd6e1b7',
                    '231f5fbc-2a93-4ad3-8053-467087039c67',
                    'd9c7c4cd-df4a-4110-91a8-52e9c446716e',
-                   'ffb6872b-7783-4560-a876-06d403650c18',
-                   ]
+                   'ffb6872b-7783-4560-a876-06d403650c18']
     preset_3091 = ['4618de2f-d3a6-4d47-ba11-094a880a4ce9',
                    'bb64fd7c-0902-41a6-a203-b3023ee97a91',
                    'bf741bf1-9bfb-46de-bf0e-6106f4cfb414',
@@ -153,8 +153,10 @@ class PlaceholderPresets(Enum):
                    '0f59184b-bc6c-4491-9b80-0731c35a50bb',
                    '28cec8d2-8d6b-4e65-9350-a39fb0b0f660']
 
+
 class ReviewShort(Enum):
     preset_3380 = ['f9985145-c6d7-4d83-a85a-7c9cda10907f']
+
 
 class TVchannels(Enum):
     tv_presets = [6401, 6405, 6416, 6425, 6429, 6440, 6451, 6455, 6466, 6475, 6484, 6491, 6525, 6534, 6541, 6552, 6559]

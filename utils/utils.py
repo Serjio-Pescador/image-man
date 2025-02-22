@@ -1,13 +1,15 @@
 import logging
 import os
-from typing import Tuple
 import allure
 from PIL import Image
 import io
 from urllib.parse import parse_qs
 import pytest, time
-from playwright.sync_api import Page
 from pathlib import Path
+
+
+def get_project_root() -> Path:
+    return Path(__file__).parent.parent
 
 
 def make_screenshot(self, img_uuid,
@@ -16,11 +18,13 @@ def make_screenshot(self, img_uuid,
                     required_height: int = None,
                     **kwargs):
     test_name = os.environ.get('PYTEST_CURRENT_TEST').split('::')[-1].split('[')[0]
-    if not os.path.exists(src_path):
-        os.makedirs(src_path)
-    rel_path = f"{src_path}{test_name}_{img_uuid}.png"
-    script_dir = os.path.dirname(__file__)
-    abs_file_path = os.path.join(script_dir, rel_path)
+
+    folder = os.path.join(get_project_root(), src_path)
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+    rel_path = f"{test_name}_{img_uuid}.png"
+    abs_file_path = os.path.join(folder, rel_path)
+
     img_obj = Image.open(io.BytesIO(self.content))
     img_obj.save(abs_file_path)
 
@@ -28,14 +32,14 @@ def make_screenshot(self, img_uuid,
     logging.info("image_manager_img_width=%s, image_manager_img_height=%s", image_manager_img_width,
                  image_manager_img_height)
 
-    allure_attach_image(abs_file_path, img_uuid)
-    compare_two_digital(required_width, image_manager_img_width, "width")
-    compare_two_digital(required_height, image_manager_img_height, "height")
+    allure_attach_image(abs_file_path, rel_path)
+    compare_two_digital(required_width, image_manager_img_width, "WIDTH")
+    compare_two_digital(required_height, image_manager_img_height, "HEIGHT")
 
     return
 
 
-def compare_screenshot(self, image_snapshot, img_uuid, diff: float = 0.6,
+def compare_screenshot(self, image_snapshot, img_uuid, diff: float = 0.5,
                        src_path: str = 'screenshots/',
                        required_width: int = None,
                        required_height: int = None,
@@ -43,29 +47,33 @@ def compare_screenshot(self, image_snapshot, img_uuid, diff: float = 0.6,
     for key in ('src_path', 'required_width', 'required_height', 'timeout'):
         if key in kwargs:
             setattr(self, key, kwargs[key])
+
     test_name = os.environ.get('PYTEST_CURRENT_TEST').split('::')[-1].split('[')[0]
-    script_dir = os.path.dirname(__file__)
-    abs_file_path = os.path.join(script_dir, src_path)
-    screenshot = Image.open(io.BytesIO(self))
+
+    folder = os.path.join(get_project_root(), src_path)
+    rel_path = f"{test_name}_{img_uuid}.png"
+    abs_file_path = os.path.join(folder, rel_path)
+
+    picture = Image.open(io.BytesIO(self.content))
 
     try:
-        image_snapshot(screenshot, f"{abs_file_path}{test_name}_{img_uuid}.png", diff)
+        image_snapshot(picture, f"{abs_file_path}", diff)
     except Exception as e:
         # logging.error("Image does not match the snapshot stored in screenshots.", e)
         logging.error("Image does not match the snapshot stored in screenshots.")
         allure.attach.file(
-            str(f"{abs_file_path}{test_name}_{img_uuid}.new.png"),
+            str(f"{abs_file_path.replace('.png','.new.png')}"),
             name=f"{test_name}_{img_uuid}.new.png",
             attachment_type=allure.attachment_type.PNG,
         )
         allure.attach.file(
-            str(f"{abs_file_path}{test_name}_{img_uuid}.diff.png"),
+            str(f"{abs_file_path.replace('.png', '.diff.png')}"),
             name=f"{test_name}_{img_uuid}.diff.png",
             attachment_type=allure.attachment_type.PNG,
         )
         pytest.fail("Image does not match the snapshot stored in screenshots.", e)
 
-    static_img_width, static_img_height = screenshot.size
+    static_img_width, static_img_height = picture.size
     logging.info("static_img_width=%s, static_img_height=%s", static_img_width, static_img_height)
 
     compare_two_digital(required_width, static_img_width, "width")
@@ -106,9 +114,9 @@ def make_new_url_tail_rounded_width(base_tail: str) -> tuple[str, int]:
 def check_response(response):
     if response.status_code == 404:
         logging.warning("404, Image not found.")
-        pytest.skip("Image not found")
+        pytest.skip(" -> Image not found <- ")
     if response.status_code == 403:
-        pytest.xfail("403, Access denied")
+        pytest.xfail(" XXX 403, Access denied XXX ")
     elif response.status_code == 429 or response.status_code == 500:
         time.sleep(2)
     return response.status_code
@@ -141,7 +149,9 @@ def allure_attach_image(src_path, img_uuid, suffix: str = ''):
 
 def compare_two_digital(from_request: int, from_image: int, name: str):
     if from_request:
-        if from_request != from_image:
+        # if from_request != from_image:
+        # Допустимое расхождение размеров 1 пиксель
+        if abs(from_request - from_image) >= 1:
             logging.error("Different %s! %s != %s", name, from_request, from_image)
-            pytest.fail(f" Different {name} of images! ")
+            pytest.fail(f" Different {name} of image! ")
     return None

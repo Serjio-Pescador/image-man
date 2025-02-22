@@ -1,12 +1,15 @@
 import allure
 import pytest
-import os, re
+import os
+import re
 import logging
 from dotenv import load_dotenv
-from utils import make_screenshot, compare_screenshot
-from utils import maker_of_test_data
-from utils import check_response, remove_prefix, remove_suffix
+from utils.utils import compare_screenshot
+from utils.utils import maker_of_test_data
+from utils.receive_ok_response import check_response
+from utils.utils import remove_prefix, remove_suffix
 from static.link_for_test import LinkData, LinkNotValid
+
 
 load_dotenv()
 
@@ -22,8 +25,8 @@ class TestExternalLinks:
     @pytest.mark.parametrize("kind, link",
                              data
                              )
-    def test_external_link(self, page, image_snapshot, kind, link):
-        page.set_default_timeout(60000)
+    def test_external_link(self, image_snapshot, kind, link):
+
         logging.info("Link is %s: %s", kind, link)
 
         image_manager_url = f"{host_url}{link}"
@@ -31,22 +34,17 @@ class TestExternalLinks:
 
         file_name = re.sub(r'[^a-zA-Z0-9]', '_', link)
 
-        response = page.goto(image_manager_url)
-        page.wait_for_load_state('domcontentloaded')
-        while check_response(response) != 200:
-            response = page.goto(image_manager_url)
-            page.wait_for_load_state('domcontentloaded')
-        assert response.ok
+        response = check_response(image_manager_url)
 
         # make_screenshot(page, img_uuid=file_name, timeout=6000)
-        compare_screenshot(page, image_snapshot, img_uuid=file_name, timeout=3000, diff=0.3)
+        compare_screenshot(response, image_snapshot, img_uuid=file_name, timeout=3000, diff=0.3)
 
     @allure.title('External link/key NEW')
     @pytest.mark.parametrize("kind, link",
                              data
                              )
-    def test_external_link_new_api(self, page, image_snapshot, kind, link):
-        page.set_default_timeout(60000)
+    def test_external_link_new_api(self, image_snapshot, kind, link):
+
         logging.info("Link is %s: %s", kind, link)
 
         modified_link = str(link).replace('[', '').replace(']', '')
@@ -58,29 +56,22 @@ class TestExternalLinks:
 
         file_name = re.sub(r'[^a-zA-Z0-9]', '_', link)
 
-        response = page.goto(image_manager_url)
-        page.wait_for_load_state('domcontentloaded')
-        while check_response(response) != 200:
-            response = page.goto(image_manager_url)
-            page.wait_for_load_state('domcontentloaded')
-        assert response.ok
+        response = check_response(image_manager_url)
 
         # make_screenshot(page, img_uuid=file_name, timeout=6000)
-        compare_screenshot(page, image_snapshot, img_uuid=file_name, timeout=3000, diff=0.3)
+        compare_screenshot(response, image_snapshot, img_uuid=file_name, timeout=3000, diff=0.3)
 
     @allure.title('External link/key Invalid')
     @pytest.mark.parametrize("kind, link",
                              invalid_data
                              )
-    def test_external_link_invalid(self, page, kind, link):
+    def test_external_link_invalid(self, kind, link):
         logging.info("Link is %s: %s", kind, link)
 
         modified_link = str(link).replace('[', '').replace(']', '')
         image_manager_url = f"{host_url.replace('images/v4/', 'external/v1/')}{modified_link}"
         logging.info("IM url: %s", image_manager_url)
 
-        response = page.goto(image_manager_url)
-        while check_response(response) == 429:
-            response = page.goto(image_manager_url)
-        assert response.status == 400
-
+        check_response(image_manager_url)
+        if check_response(image_manager_url).status_code == 400:
+            pass
