@@ -181,3 +181,16 @@ class TVchannels(Enum):
                   'ad0e6957-909c-4043-aed2-3f48994fac8e',
                   'e5288983-855e-44bf-a6d5-10bd903a4008',
                   'e09d2800-8636-45ad-a77d-83593504bec0']
+
+
+class TitlePresets(Enum):
+    presets = [1008, 1218, 1219, 1220, 1221, 1222, 1223, 1241, 1242, 1560, 1561]
+    title_uuid = ['ea839f28-ed4b-424d-8df0-3baf1c62600b',
+                  '9590063d-b244-4c45-9d46-a4f1fe4bbc8e',
+                  'd4f35919-f519-4a64-b6f1-0bf284ce165c',
+                  '6240b199-f206-49ca-8755-fa2cf98ea73a',
+                  '7251dff6-4a76-4acc-be10-43a908b14ad5',
+                  '23d7373d-e336-4044-a9c6-e07c9a96a06a',
+                  '23d7373d-e336-4044-a9c6-e07c9a96a06a',
+                  'a5cf85b2-b4a0-4b9d-b2c3-522fef227c4c',
+                  'fdfdbdf4-dff3-4e1a-a41a-71643bdb9216']
