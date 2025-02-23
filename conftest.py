@@ -1,14 +1,20 @@
 import pytest
+import os
+from pathlib import Path
 
 
 @pytest.fixture(scope="session")
-def browser_context_args(browser_context_args):
-    return {
-        **browser_context_args,
-        "viewport": {
-            "width": 1080,
-            "height": 720,
-        }
-    }
+def temp_dir(tmpdir):
+    if not tmpdir:
+        tmpdir = Path(__file__).parent.parent
+    tmpdir.mkdir('screenshots/')
+    return
 
-    browser_context.set_default_timeout(0)
+
+# Clean up: Remove the temporary files after the tests
+# @pytest.fixture(autouse=True)
+# def cleanup_temp_files(temp_dir):
+#     yield
+#     for file in temp_dir.iterdir():
+#         if file.is_file():
+#             os.remove(file)
