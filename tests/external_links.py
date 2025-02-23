@@ -4,9 +4,10 @@ import os
 import re
 import logging
 from dotenv import load_dotenv
-from utils.utils import compare_screenshot
+from utils.compare_picture import compare_screenshot
+from utils.make_storage_picture import make_screenshot
 from utils.utils import maker_of_test_data
-from utils.receive_ok_response import check_response
+from utils.receive_response import check_response
 from utils.utils import remove_prefix, remove_suffix
 from static.link_for_test import LinkData, LinkNotValid
 
@@ -36,8 +37,8 @@ class TestExternalLinks:
 
         response = check_response(image_manager_url)
 
-        # make_screenshot(page, img_uuid=file_name, timeout=6000)
-        compare_screenshot(response, image_snapshot, img_uuid=file_name, timeout=3000, diff=0.3)
+        make_screenshot(response, img_uuid=file_name)
+        compare_screenshot(response, image_snapshot, img_uuid=file_name, diff=0.3)
 
     @allure.title('External link/key NEW')
     @pytest.mark.parametrize("kind, link",
@@ -58,8 +59,8 @@ class TestExternalLinks:
 
         response = check_response(image_manager_url)
 
-        # make_screenshot(page, img_uuid=file_name, timeout=6000)
-        compare_screenshot(response, image_snapshot, img_uuid=file_name, timeout=3000, diff=0.3)
+        make_screenshot(response, img_uuid=file_name)
+        compare_screenshot(response, image_snapshot, img_uuid=file_name, diff=0.3)
 
     @allure.title('External link/key Invalid')
     @pytest.mark.parametrize("kind, link",
@@ -73,5 +74,7 @@ class TestExternalLinks:
         logging.info("IM url: %s", image_manager_url)
 
         check_response(image_manager_url)
-        if check_response(image_manager_url).status_code == 400:
+        if check_response(image_manager_url).status_code in [400, 403]:
             pass
+        else:
+            pytest.fail(" -> Link is valid! I can open it!!! <- ")

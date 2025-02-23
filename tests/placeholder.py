@@ -3,9 +3,10 @@ import pytest
 import os
 import logging
 from dotenv import load_dotenv
-from utils.utils import compare_screenshot, make_screenshot
+from utils.compare_picture import compare_screenshot
+from utils.make_storage_picture import make_screenshot
 from utils.utils import maker_of_test_data
-from utils.receive_ok_response import check_response
+from utils.receive_response import check_response
 from static.test_uuid import PlaceholderPresets
 
 

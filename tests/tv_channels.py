@@ -3,8 +3,9 @@ import pytest
 import os
 from dotenv import load_dotenv
 import logging
-from utils.utils import make_screenshot, compare_screenshot
-from utils.receive_ok_response import check_response
+from utils.compare_picture import compare_screenshot
+from utils.make_storage_picture import make_screenshot
+from utils.receive_response import check_response
 from static.test_uuid import TVchannels
 
 load_dotenv()
@@ -23,8 +24,8 @@ class TestTvChannels:
 
         logging.info("TV channel uuid: %s", tv_channel_uuid)
 
-        query_tail = (f"presetId={preset}&clienttype=tv&mediatype=png&height=72")
-        query_im = (f"clienttype=tv&height=79&mediatype=png&presetid={preset}")
+        query_tail = f"presetId={preset}&clienttype=tv&mediatype=png&height=72"
+        query_im = f"clienttype=tv&height=79&mediatype=png&presetid={preset}"
 
         image_manager_url = f"{host_url}{tv_channel_uuid}?{query_im}"
         stat_img_url = f"{static_url}{tv_channel_uuid}?{query_tail}"

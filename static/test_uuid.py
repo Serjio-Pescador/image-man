@@ -2,8 +2,8 @@ from enum import Enum
 
 
 class WidthSportReview(Enum):
-    required_width = [173, 220, 226, 253, 273, 299, 312, 348, 360, 387, 408, 434, 505, 540, 584, 606, 637, 683, 700,
-                      720]
+    required_width = [173, 220, 226, 253, 273, 299, 312, 333, 350, 360, 387, 408, 434, 505, 531, 584,
+                      606, 637, 683, 700, 720]
 
 
 class PresetData(Enum):
@@ -59,7 +59,17 @@ class PresetData(Enum):
                    '4907aa63-8a4e-4396-9985-e3e89e247e19',
                    '66db8b20-b28f-49b5-a329-0e49eec5f1cd',
                    '06577504-fd25-4110-bdb8-3352b477480b',
-                   '508014cc-ee01-4bf4-8984-9776d32f56cb']
+                   '508014cc-ee01-4bf4-8984-9776d32f56cb',
+                   '7133304d-41bf-41dc-9d25-e3b4a48fc00a',
+                   'a6777bf5-def6-4125-b63b-ef44ebba0e27',
+                   '583679d7-f354-4fc0-99c3-59fc898ec56a',
+                   '5fa82783-43af-4be7-ba32-2065bea18c02',
+                   '21fa1568-6ff9-4a7b-a2ae-b39f23b5a177',
+                   'd55c8c02-75c9-4e45-a81a-766808d6dc88',
+                   '6e95cb33-18dd-4089-8eaa-2905eee256fb',
+                   'e85e7537-8160-43c7-abc2-46057258518d',
+                   '3337c100-31a6-4dd8-a84a-a9a5fff7a607',
+                   '3678e312-7633-41a6-92c1-c218ed049060']
     preset_3360 = ['333bc533-e92f-4c07-b36c-510c491f9e08',
                    '29ac7383-68f8-4ed5-a5da-88a72bb7f93c',
                    '085b68a9-5648-4d37-be18-8eea4758b57b',
@@ -114,7 +124,8 @@ class PresetData(Enum):
                    '0ec2a0db-2f0b-40ac-b935-31a5e764cd9f',
                    '667493d8-f4f9-413f-826c-6391d44f22e7',
                    '628f8720-5b96-4e39-98d7-601085745e0d',
-                   '5b5e7c35-cf18-4a00-acf8-2f71adb0b866']
+                   '5b5e7c35-cf18-4a00-acf8-2f71adb0b866',
+                   'd855e763-d2dd-4a19-8180-caf74bffc85e']
     preset_3629 = ['5ddc6878-5233-4d14-a4f5-c9580c424502',
                    '7dab5426-a27c-43ca-8c34-b4b7d1ee641c',
                    'c557c62a-b8be-41ba-8b4c-4ce2a55ae85a',

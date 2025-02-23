@@ -3,9 +3,10 @@ import pytest
 import os
 from dotenv import load_dotenv
 import logging
-from utils.utils import make_screenshot, compare_screenshot
+from utils.compare_picture import compare_screenshot
+from utils.make_storage_picture import make_screenshot
 from utils.utils import maker_of_test_data, make_new_url_tail_rounded_width
-from utils.receive_ok_response import check_response
+from utils.receive_response import check_response
 from static.test_uuid import PresetData, WidthSportReview
 
 
@@ -45,7 +46,7 @@ class TestSportReviews:
         response_im = check_response(image_manager_url)
 
         name_file = f"uuid_{review_uuid}_{preset}_width_{required_width}"
-        make_screenshot(response_im, img_uuid=name_file, required_width=response_width)
+        make_screenshot(response_im, img_uuid=name_file)
 
         response_static = check_response(stat_img_url)
 
