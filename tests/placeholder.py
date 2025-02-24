@@ -11,8 +11,8 @@ from static.test_uuid import PlaceholderPresets
 
 
 load_dotenv()
-host_url = os.getenv("HOST")
-static_url = os.getenv("STATIC_URL")
+im_prod = os.getenv("IM_PROD")
+im_pre = os.getenv("IM_PRE")
 
 data = maker_of_test_data(PlaceholderPresets)
 
@@ -27,14 +27,14 @@ class TestPlaceholders:
         logging.info("Name of person uuid: %s", name_uuid)
         query_tail = f"presetId={preset}&width=720"
 
-        image_manager_url = f"{host_url}{name_uuid}?{query_tail}"
-        logging.info("Image-Manager url: %s", image_manager_url)
+        image_manager_prod_url = f"{im_prod}{name_uuid}?{query_tail}"
+        logging.info("Image-Manager url: %s", image_manager_prod_url)
 
-        stat_url = f"{static_url}{name_uuid}?{query_tail}"
-        logging.info("Static url: %s", image_manager_url)
+        image_manager_pre_url = f"{im_pre}{name_uuid}?{query_tail}"
+        logging.info("Static url: %s", image_manager_prod_url)
 
-        response_im = check_response(image_manager_url)
-        response_stat = check_response(stat_url)
+        response_prod = check_response(image_manager_prod_url)
+        response_pre = check_response(image_manager_pre_url)
 
-        make_screenshot(response_im, img_uuid=name_uuid)
-        compare_screenshot(response_stat, image_snapshot, img_uuid=name_uuid, diff=0.1)
+        make_screenshot(response_prod, img_uuid=name_uuid)
+        compare_screenshot(response_pre, image_snapshot, img_uuid=name_uuid, diff=0.1)

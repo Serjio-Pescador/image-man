@@ -5,7 +5,6 @@ import logging
 from dotenv import load_dotenv
 from utils.compare_picture import compare_screenshot
 from utils.make_storage_picture import make_screenshot
-from utils.utils import maker_of_test_data
 from utils.receive_response import check_response
 from static.test_uuid import TitlePresets
 
@@ -26,10 +25,10 @@ class TestTitles:
         query_tail = f"presetid={preset}&width=637&title=Changed Title."
 
         image_manager_url = f"{im_prod}{data_uuid}?{query_tail}"
-        logging.info("Image-Manager url: %s", image_manager_url)
+        logging.info("Image-Manager PROD url: %s", image_manager_url)
 
         pre_url = f"{im_pre}{data_uuid}?{query_tail}"
-        logging.info("Static url: %s", image_manager_url)
+        logging.info("Image-Manager PRE url: %s", pre_url)
 
         response_im = check_response(image_manager_url)
         name_screenshot = f"{preset}_{data_uuid}"
