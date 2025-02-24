@@ -69,7 +69,8 @@ class PresetData(Enum):
                    '6e95cb33-18dd-4089-8eaa-2905eee256fb',
                    'e85e7537-8160-43c7-abc2-46057258518d',
                    '3337c100-31a6-4dd8-a84a-a9a5fff7a607',
-                   '3678e312-7633-41a6-92c1-c218ed049060']
+                   # '3678e312-7633-41a6-92c1-c218ed049060',
+                   ]
     preset_3360 = ['333bc533-e92f-4c07-b36c-510c491f9e08',
                    '29ac7383-68f8-4ed5-a5da-88a72bb7f93c',
                    '085b68a9-5648-4d37-be18-8eea4758b57b',
@@ -125,7 +126,8 @@ class PresetData(Enum):
                    '667493d8-f4f9-413f-826c-6391d44f22e7',
                    '628f8720-5b96-4e39-98d7-601085745e0d',
                    '5b5e7c35-cf18-4a00-acf8-2f71adb0b866',
-                   'd855e763-d2dd-4a19-8180-caf74bffc85e']
+                   # 'd855e763-d2dd-4a19-8180-caf74bffc85e',
+                   ]
     preset_3629 = ['5ddc6878-5233-4d14-a4f5-c9580c424502',
                    '7dab5426-a27c-43ca-8c34-b4b7d1ee641c',
                    'c557c62a-b8be-41ba-8b4c-4ce2a55ae85a',
@@ -162,7 +164,8 @@ class PlaceholderPresets(Enum):
                    'e08b2773-5c63-467d-a8a0-9513d16d055f']
     preset_3131 = ['057a97ba-c641-40c8-9d8c-c2b10e8e14e1',
                    '0f59184b-bc6c-4491-9b80-0731c35a50bb',
-                   '28cec8d2-8d6b-4e65-9350-a39fb0b0f660']
+                   '28cec8d2-8d6b-4e65-9350-a39fb0b0f660',
+                   '468750a4-5ca7-47a6-ba37-e80e5e53e641']
 
 
 class ReviewShort(Enum):
@@ -194,3 +197,26 @@ class TitlePresets(Enum):
                   '23d7373d-e336-4044-a9c6-e07c9a96a06a',
                   'a5cf85b2-b4a0-4b9d-b2c3-522fef227c4c',
                   'fdfdbdf4-dff3-4e1a-a41a-71643bdb9216']
+
+
+class Category(Enum):
+    presets = [6000, 6002, 6004, 6006, 6008, 6010]
+    titles = ['R',
+              'Фильмы',
+              'Тестовое из пи-уай тестов',
+              'Очень длинное название для категории',
+              'Сериалы и прочее',
+              'Попробуем через-дефис']
+    category_uuid = ['b2021d79-c529-45d6-880d-94fe8cab96d4',
+                     '74a0baf7-7f0c-4e2f-a284-97ef6d588d79',
+                     'b90d292c-6a87-4eba-a06f-573942fc0540',
+                     '2b411846-eeb9-474a-9ade-56589b888ed1',
+                     '967df3a8-f39d-45b2-8d70-7c7868ba649e',
+                     '946d9f49-3bef-4c93-80e7-6d6650053af7',
+                     'f6ddae7d-800b-494d-962f-758a1c51b470',
+                     'cab45edb-deb5-47ff-931d-1611fb8d7407',
+                     'e920b424-d837-4bd9-ac4a-a4f45d996335',
+                     '7313e73c-0723-4af0-868a-586939033690',  # invalid uuid
+                     'dd638973-576c-4331-b926-f8b15fc63daa',
+                     '537b6f3f-7c34-4557-b041-0c4ab01b6b81',  # uuid without data
+                     'ab9a8d5b-b171-4fad-be55-cd68d91b456a']  # uuid without data
