@@ -1,0 +1,39 @@
+import allure
+import pytest
+import os
+import logging
+from dotenv import load_dotenv
+from utils.compare_picture import compare_screenshot
+from utils.make_storage_picture import make_screenshot
+from utils.receive_response import check_response
+from static.test_uuid import OtherPresets
+
+
+load_dotenv()
+im_prod = os.getenv("IM_PROD")
+im_pre = os.getenv("IM_PRE")
+
+
+@allure.story('Использование различных пресетов и контента')
+class TestTitles:
+    @pytest.mark.parametrize("preset", OtherPresets.presets.value)
+    @pytest.mark.parametrize("data_uuid", OtherPresets.data_uuid.value)
+    @allure.title("{data_uuid} - {preset}")
+    def test_use_diff_preset(self, image_snapshot, preset, data_uuid):
+
+        logging.info("Others presets uuid: %s", data_uuid)
+        query_tail = f"presetid={preset}&width=637"
+
+        image_manager_url = f"{im_prod}{data_uuid}?{query_tail}"
+        logging.info("Image-Manager PROD url: %s", image_manager_url)
+
+        pre_url = f"{im_pre}{data_uuid}?{query_tail}"
+        logging.info("Image-Manager PRE url: %s", pre_url)
+
+        response_im = check_response(image_manager_url)
+        name_screenshot = f"{preset}_{data_uuid}"
+
+        make_screenshot(response_im, img_uuid=name_screenshot)
+
+        response_pre = check_response(pre_url)
+        compare_screenshot(response_pre, image_snapshot, img_uuid=name_screenshot, diff=0.3)

@@ -69,8 +69,8 @@ class PresetData(Enum):
                    '6e95cb33-18dd-4089-8eaa-2905eee256fb',
                    'e85e7537-8160-43c7-abc2-46057258518d',
                    '3337c100-31a6-4dd8-a84a-a9a5fff7a607',
-                   # '3678e312-7633-41a6-92c1-c218ed049060',
-                   ]
+                   '67fdaad5-ff49-4551-b920-397e9ad3dc7e',
+                   '3ef95da9-5294-4f0d-9f3b-b097def3505f']
     preset_3360 = ['333bc533-e92f-4c07-b36c-510c491f9e08',
                    '29ac7383-68f8-4ed5-a5da-88a72bb7f93c',
                    '085b68a9-5648-4d37-be18-8eea4758b57b',
@@ -88,7 +88,10 @@ class PresetData(Enum):
                    'edd4a7b8-c453-4c86-bf21-13858dd6e1b7',
                    '231f5fbc-2a93-4ad3-8053-467087039c67',
                    'd9c7c4cd-df4a-4110-91a8-52e9c446716e',
-                   'ffb6872b-7783-4560-a876-06d403650c18']
+                   'ffb6872b-7783-4560-a876-06d403650c18',
+                   '26578214-a4d3-45c8-80f1-a2df52d88a91',
+                   '2dfc4ef1-e757-4de1-8440-da45f69eec66',
+                   '45435d4a-2734-4d27-bfa4-06fb8320d632']
     preset_3091 = ['4618de2f-d3a6-4d47-ba11-094a880a4ce9',
                    'bb64fd7c-0902-41a6-a203-b3023ee97a91',
                    'bf741bf1-9bfb-46de-bf0e-6106f4cfb414',
@@ -126,8 +129,10 @@ class PresetData(Enum):
                    '667493d8-f4f9-413f-826c-6391d44f22e7',
                    '628f8720-5b96-4e39-98d7-601085745e0d',
                    '5b5e7c35-cf18-4a00-acf8-2f71adb0b866',
-                   # 'd855e763-d2dd-4a19-8180-caf74bffc85e',
-                   ]
+                   '3e1d8016-2aca-4f30-91b7-cd865e9a468c',
+                   '90dd8002-02e6-4172-ad50-89f9ec5b19b2',
+                   'db8437d3-b2e4-4154-8a9b-4b5d0ad4f99b',
+                   '90f3172a-8c8f-47cc-90ec-8e903dcadaf0']
     preset_3629 = ['5ddc6878-5233-4d14-a4f5-c9580c424502',
                    '7dab5426-a27c-43ca-8c34-b4b7d1ee641c',
                    'c557c62a-b8be-41ba-8b4c-4ce2a55ae85a',
@@ -140,7 +145,8 @@ class PresetData(Enum):
                    '02263ee9-2b00-4459-b806-922822d6b12f',
                    '22719264-37e0-4185-80f1-2f50d7711c6d',
                    '8783afd4-0ea5-4e02-b8b8-4c86e0d94ff1',
-                   '87324212-64b3-40a4-b6ef-d3e552e04833']
+                   '87324212-64b3-40a4-b6ef-d3e552e04833',
+                   '0e568c62-22bc-4458-9ac9-6d841dd41748']
     preset_3100 = ['53d5cbe4-fe48-403f-93be-9648a2b370ef']
     preset_3228 = ['f7308968-f329-4978-adce-d817e4c0bc93',
                    '1663a980-5432-4830-a38f-ebf829293ca9',
@@ -218,5 +224,23 @@ class Category(Enum):
                      'e920b424-d837-4bd9-ac4a-a4f45d996335',
                      '7313e73c-0723-4af0-868a-586939033690',  # invalid uuid
                      'dd638973-576c-4331-b926-f8b15fc63daa',
-                     '537b6f3f-7c34-4557-b041-0c4ab01b6b81',  # uuid without data
-                     'ab9a8d5b-b171-4fad-be55-cd68d91b456a']  # uuid without data
+                     'c29906b1-c7ce-4800-8894-9e5f7ac8a369',
+                     'abc529a6-d053-4142-8472-2343ebdad65f',
+                     'b221e268-f5e5-459f-9b10-81abb7b1afd1']  # без background_portrait
+
+
+class OtherPresets(Enum):
+    presets = [1001, 1006, 1008, 1021, 1094, 1202, 1207, 1218, 1241, 1242, 1560, 1561, 3033, 3054, 3137, 3490, 4000]
+    data_uuid = ['b08d1c98-58a4-44e6-a211-5ae7d8012b77',
+                 'd943c0af-61de-469b-8517-69b78b6f0536',
+                 '3341bb5e-f2b2-46db-9663-2c4e4b6f87da',
+                 '436417f3-f965-4215-9ef4-3d4023461645',
+                 '385c841f-9af9-45ed-ab40-e176fbd37dbf',
+                 '843abd80-d588-457d-9c6c-8db49ae805bb',
+                 '9be280e3-610a-4ce3-897e-43475e2fee28',
+                 '4afbf03f-02c7-400c-8a61-3b62b866d52a',
+                 'd30860ee-dfc2-4aa5-bc33-4cfd42f241d6',
+                 '7d7d0e65-c50e-4717-89f5-d7da8f69929d',
+                 'b439573b-a77a-4021-93a7-afd29f63bd43',
+                 'bad50a85-d766-4169-8a27-5799d4f50259',
+                 '70a3217b-573d-46f5-8064-8d721ec2b94d']
