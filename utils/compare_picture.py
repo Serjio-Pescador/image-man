@@ -1,7 +1,7 @@
-import logging
 import pytest
 from PIL import Image
 import io
+import logging
 from utils.utils import allure_attach_image, compare_two_digital
 from utils.file_name_maker import get_file_name
 
