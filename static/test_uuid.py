@@ -70,7 +70,9 @@ class PresetData(Enum):
                    'e85e7537-8160-43c7-abc2-46057258518d',
                    '3337c100-31a6-4dd8-a84a-a9a5fff7a607',
                    '67fdaad5-ff49-4551-b920-397e9ad3dc7e',
-                   '3ef95da9-5294-4f0d-9f3b-b097def3505f']
+                   '3ef95da9-5294-4f0d-9f3b-b097def3505f',
+                   'bf967351-4a11-4cc7-b93f-edfccc727980',
+                   'ef6cfd7a-9b12-4975-a12b-b8c88733865d']
     preset_3360 = ['333bc533-e92f-4c07-b36c-510c491f9e08',
                    '29ac7383-68f8-4ed5-a5da-88a72bb7f93c',
                    '085b68a9-5648-4d37-be18-8eea4758b57b',
@@ -91,7 +93,9 @@ class PresetData(Enum):
                    'ffb6872b-7783-4560-a876-06d403650c18',
                    '26578214-a4d3-45c8-80f1-a2df52d88a91',
                    '2dfc4ef1-e757-4de1-8440-da45f69eec66',
-                   '45435d4a-2734-4d27-bfa4-06fb8320d632']
+                   '45435d4a-2734-4d27-bfa4-06fb8320d632',
+                   '25c68936-4691-4b9d-af1f-9f4e389e8626',
+                   'b2e88363-b29e-45e8-bded-35e3ceb6c6e6']
     preset_3091 = ['4618de2f-d3a6-4d47-ba11-094a880a4ce9',
                    'bb64fd7c-0902-41a6-a203-b3023ee97a91',
                    'bf741bf1-9bfb-46de-bf0e-6106f4cfb414',
@@ -100,7 +104,9 @@ class PresetData(Enum):
                    '088c24ec-fb15-4ff3-995d-372227ac95c1',
                    '6bdd9033-910b-4417-96ca-5f646d342620',
                    '45d9bc06-a114-4f05-a674-5f537e9e8a6b',
-                   '7f422e87-41d6-43a0-8785-71baa05323e9']
+                   '7f422e87-41d6-43a0-8785-71baa05323e9',
+                   '246f2994-a5b9-48cf-a5d6-8f8507121cb2',
+                   '44d822b7-4a1f-40af-8ff7-567cc325aa5c']
     preset_3626 = ['2a800c2b-59f2-446a-af24-be58515ddf37',
                    'b5d3cd31-2757-40ca-a80d-d678b7a0ac45',
                    'cd7d1f18-f2d4-43e5-9977-a19416089169',
@@ -132,7 +138,22 @@ class PresetData(Enum):
                    '3e1d8016-2aca-4f30-91b7-cd865e9a468c',
                    '90dd8002-02e6-4172-ad50-89f9ec5b19b2',
                    'db8437d3-b2e4-4154-8a9b-4b5d0ad4f99b',
-                   '90f3172a-8c8f-47cc-90ec-8e903dcadaf0']
+                   '90f3172a-8c8f-47cc-90ec-8e903dcadaf0',
+                   'baa0e4a9-cf99-479d-9fc7-b691ed627b1f',
+                   'b775ce2a-5c68-4b37-993a-fcb82edbb989',
+                   'b0d0ce95-2d04-4284-86c7-541d8e0cf7ff',
+                   'b8988d01-9d58-4809-9afd-f7357b19876b',
+                   'b221ecd3-27d6-4e82-b115-e4d534fdd736',
+                   '969ff07f-5982-41a6-921d-59999ef68db9',
+                   '3690c420-ebc9-4b70-be43-9c26e52a3be0',
+                   '960facc7-b30b-4fd8-b933-07f7b1fdb2dc',
+                   '82ce0fd7-1c84-4c85-8405-14af82649934',
+                   '93301e0a-37d0-4868-b1f4-21bb2c953987',
+                   '01895de4-4937-42ea-a817-91dd93ee91b0',
+                   'a555132f-16fd-4608-8427-4145953410e4',
+                   '58f4f5fe-5372-4a5b-aa3b-20590c005def',
+                   '50956225-18e5-4f89-8378-38332add95ed',
+                   '9bd70ba5-cb8a-47c0-ade2-ee90974a9cc7']
     preset_3629 = ['5ddc6878-5233-4d14-a4f5-c9580c424502',
                    '7dab5426-a27c-43ca-8c34-b4b7d1ee641c',
                    'c557c62a-b8be-41ba-8b4c-4ce2a55ae85a',

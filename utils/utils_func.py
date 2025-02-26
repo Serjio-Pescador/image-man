@@ -1,8 +1,13 @@
-import logging
+from typing import Tuple
+
 import allure
-from urllib.parse import parse_qs
 import pytest
+from urllib.parse import parse_qs
 from pathlib import Path
+from utils.app_logger import get_logger
+
+
+logger = get_logger(__name__)
 
 
 def get_project_root() -> Path:
@@ -29,7 +34,7 @@ def make_new_url_tail_rounded_width(base_tail: str) -> tuple[str, int]:
     elif width % 20 != 0:
         new_width = width + 20 - (width % 20)
 
-    logging.info("Required width: %s", new_width)
+    logger.info("Required width: %s", new_width)
     # assert new_width % 10 == 0
 
     eql_query_im = query_params.copy()
@@ -59,7 +64,7 @@ def allure_attach_image(src_path, img_uuid, suffix: str = ''):
             attachment_type=allure.attachment_type.PNG,
         )
     except Exception as e:
-        logging.warning("The snapshot not found in screenshots.")
+        logger.error("The snapshot not found in screenshots.")
         # logging.exception("%s", e)
     return
 
@@ -69,6 +74,14 @@ def compare_two_digital(from_request: int, from_image: int, name: str):
         # if from_request != from_image:
         # Допустимое расхождение размеров 1 пиксель
         if abs(from_request - from_image) > 1:
-            logging.error("Different %s! %s != %s", name, from_request, from_image)
+            logger.error("Different %s! %s != %s", name, from_request, from_image)
             pytest.fail(f" Different {name} of image! ")
     return None
+
+
+def compare_two_string(first_str: str, second_str: int, name: str) -> str:
+    if first_str != second_str:
+        logger.warning("different %s! %s != %s", name, first_str, second_str)
+    else:
+        logger.info("Equal %s. %s == %s", name, first_str, second_str)
+    return f"Equal %s is %s.".format(name, first_str == second_str)
