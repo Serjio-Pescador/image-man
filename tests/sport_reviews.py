@@ -2,13 +2,16 @@ import allure
 import pytest
 import os
 from dotenv import load_dotenv
-import logging
 from utils.compare_picture import compare_screenshot
 from utils.make_storage_picture import make_screenshot
-from utils.utils import maker_of_test_data, make_new_url_tail_rounded_width
+from utils.utils_func import maker_of_test_data, make_new_url_tail_rounded_width
 from utils.receive_response import check_response
 from static.test_uuid import PresetData, WidthSportReview
+from utils.app_logger import get_logger
+from utils.utils_func import compare_two_string
 
+
+logger = get_logger(__name__)
 
 load_dotenv()
 
@@ -26,7 +29,7 @@ class TestSportReviews:
                              data
                              )
     def test_sport_preset(self, image_snapshot, preset, review_uuid, required_width):
-        logging.info("uuid: %s", review_uuid)
+        logger.info("uuid: %s", review_uuid)
 
         if required_width < 350:
             scale_factor = 1
@@ -38,16 +41,18 @@ class TestSportReviews:
         query_im, response_width = make_new_url_tail_rounded_width(query_alphabet)
 
         image_manager_url = f"{host_url}{review_uuid}?{query_im}"
-        logging.info("IM url: %s", image_manager_url)
-
-        stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
-        logging.info("static url: %s", stat_img_url)
-
+        logger.info("IM url: %s", image_manager_url)
         response_im = check_response(image_manager_url)
 
         name_file = f"uuid_{review_uuid}_{preset}_width_{required_width}"
         make_screenshot(response_im, img_uuid=name_file)
 
+        stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
+        logger.info("static url: %s", stat_img_url)
         response_static = check_response(stat_img_url)
 
+        compare_two_string(response_im.headers.get('etag'), response_static.headers.get('etag'), "ETAG")
         compare_screenshot(response_static, image_snapshot, img_uuid=name_file, required_width=response_width)
+
+    if __name__ == "__main__":
+        test_sport_preset()

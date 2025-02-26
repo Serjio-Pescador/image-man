@@ -1,5 +1,5 @@
 import os
-from utils.utils import get_project_root
+from utils.utils_func import get_project_root
 
 
 def get_file_name(src_path, img_uuid):
