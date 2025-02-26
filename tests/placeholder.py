@@ -7,10 +7,11 @@ from utils.make_storage_picture import make_screenshot
 from utils.utils_func import maker_of_test_data
 from utils.receive_response import check_response
 from static.test_uuid import PlaceholderPresets
-from utils.app_logger import get_logger
+from utils.app_logger import get_logger, handler
 
 
 logger = get_logger(__name__)
+# logger.addHandler(handler)
 
 load_dotenv()
 im_prod = os.getenv("IM_PROD")

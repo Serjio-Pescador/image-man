@@ -2,9 +2,11 @@ from PIL import Image
 import io
 from utils.utils_func import allure_attach_image, compare_two_digital
 from utils.file_name_maker import get_file_name
-from utils.app_logger import get_logger
+from utils.app_logger import get_logger, handler
+
 
 logger = get_logger(__name__)
+# logger.addHandler(handler)
 
 
 def make_screenshot(self, img_uuid,

@@ -1,10 +1,15 @@
 import logging
 import configparser
+from logging.handlers import RotatingFileHandler
+
 
 test_config = configparser.ConfigParser()
 test_config.read('pytest.ini')
 
 name_file = str(test_config['pytest']['log_file'])
+logging.basicConfig(filename=name_file)
+handler = RotatingFileHandler(name_file, maxBytes=1024, backupCount=10)
+
 
 log_format = "%(asctime)s - [%(levelname)s] - %(name)s - (%(filename)s).%(funcName)s(%(lineno)d) - %(message)s"
 
