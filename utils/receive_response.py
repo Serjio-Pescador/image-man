@@ -8,11 +8,8 @@ logger = get_logger(__name__)
 
 
 def check_response(url, timeout: int = None, **kwargs):
-
     try:
         response = requests.get(url, timeout=timeout, **kwargs)
-        etag = response.headers.get("etag")
-        logger.info("Etag: %s", etag)
         while response.status_code != 200:
             if response.status_code == 404:
                 logger.warning("404, Image not found.")
@@ -29,6 +26,8 @@ def check_response(url, timeout: int = None, **kwargs):
                 # return response
             response = requests.get(url, timeout=timeout, **kwargs)
         assert response.ok
+        e_tag = response.headers.get("etag")
+        logger.info("Etag: %s", e_tag)
         return response
     except Exception as e:
         logger.exception("%s", e)

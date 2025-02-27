@@ -72,7 +72,8 @@ class PresetData(Enum):
                    '67fdaad5-ff49-4551-b920-397e9ad3dc7e',
                    '3ef95da9-5294-4f0d-9f3b-b097def3505f',
                    'bf967351-4a11-4cc7-b93f-edfccc727980',
-                   'ef6cfd7a-9b12-4975-a12b-b8c88733865d']
+                   'ef6cfd7a-9b12-4975-a12b-b8c88733865d',
+                   '39bca739-c7d5-4c26-991b-8d6ff85aea5b']
     preset_3360 = ['333bc533-e92f-4c07-b36c-510c491f9e08',
                    '29ac7383-68f8-4ed5-a5da-88a72bb7f93c',
                    '085b68a9-5648-4d37-be18-8eea4758b57b',
@@ -106,7 +107,11 @@ class PresetData(Enum):
                    '45d9bc06-a114-4f05-a674-5f537e9e8a6b',
                    '7f422e87-41d6-43a0-8785-71baa05323e9',
                    '246f2994-a5b9-48cf-a5d6-8f8507121cb2',
-                   '44d822b7-4a1f-40af-8ff7-567cc325aa5c']
+                   '44d822b7-4a1f-40af-8ff7-567cc325aa5c',
+                   'd5071291-6ad4-4567-ad73-a44d84b62c37',
+                   'ffb5e203-7b0c-4069-b29d-38693b63334f',
+                   '52942b85-dd37-4b23-b5bf-105e9c788596',
+                   '22c5b6de-9f89-4179-9dba-9308bfb1a545']
     preset_3626 = ['2a800c2b-59f2-446a-af24-be58515ddf37',
                    'b5d3cd31-2757-40ca-a80d-d678b7a0ac45',
                    'cd7d1f18-f2d4-43e5-9977-a19416089169',
@@ -149,11 +154,11 @@ class PresetData(Enum):
                    '960facc7-b30b-4fd8-b933-07f7b1fdb2dc',
                    '82ce0fd7-1c84-4c85-8405-14af82649934',
                    '93301e0a-37d0-4868-b1f4-21bb2c953987',
-                   '01895de4-4937-42ea-a817-91dd93ee91b0',
                    'a555132f-16fd-4608-8427-4145953410e4',
                    '58f4f5fe-5372-4a5b-aa3b-20590c005def',
                    '50956225-18e5-4f89-8378-38332add95ed',
-                   '9bd70ba5-cb8a-47c0-ade2-ee90974a9cc7']
+                   '9bd70ba5-cb8a-47c0-ade2-ee90974a9cc7',
+                   'dcd9b7b5-418a-47fa-8003-d16c254db0c3']
     preset_3629 = ['5ddc6878-5233-4d14-a4f5-c9580c424502',
                    '7dab5426-a27c-43ca-8c34-b4b7d1ee641c',
                    'c557c62a-b8be-41ba-8b4c-4ce2a55ae85a',
@@ -264,4 +269,12 @@ class OtherPresets(Enum):
                  '7d7d0e65-c50e-4717-89f5-d7da8f69929d',
                  'b439573b-a77a-4021-93a7-afd29f63bd43',
                  'bad50a85-d766-4169-8a27-5799d4f50259',
-                 '70a3217b-573d-46f5-8064-8d721ec2b94d']
+                 '70a3217b-573d-46f5-8064-8d721ec2b94d',
+                 '23715109-a462-404a-a280-7cd564453488']
+
+
+class ButtonsPresets(Enum):
+    presets = [6511, 6512, 6514]
+    widths = [348, 696]
+    data_uuid = ['d60d4c68-b60d-412d-b6ad-393a2b3131fb',
+                 '9cd7cc23-26b5-4c60-906c-4dd6ed35715a']
