@@ -107,11 +107,7 @@ class PresetData(Enum):
                    '45d9bc06-a114-4f05-a674-5f537e9e8a6b',
                    '7f422e87-41d6-43a0-8785-71baa05323e9',
                    '246f2994-a5b9-48cf-a5d6-8f8507121cb2',
-                   '44d822b7-4a1f-40af-8ff7-567cc325aa5c',
-                   'd5071291-6ad4-4567-ad73-a44d84b62c37',
-                   'ffb5e203-7b0c-4069-b29d-38693b63334f',
-                   '52942b85-dd37-4b23-b5bf-105e9c788596',
-                   '22c5b6de-9f89-4179-9dba-9308bfb1a545']
+                   '44d822b7-4a1f-40af-8ff7-567cc325aa5c']
     preset_3626 = ['2a800c2b-59f2-446a-af24-be58515ddf37',
                    'b5d3cd31-2757-40ca-a80d-d678b7a0ac45',
                    'cd7d1f18-f2d4-43e5-9977-a19416089169',
@@ -275,6 +271,5 @@ class OtherPresets(Enum):
 
 class ButtonsPresets(Enum):
     presets = [6511, 6512, 6514]
-    widths = [348, 696]
-    data_uuid = ['d60d4c68-b60d-412d-b6ad-393a2b3131fb',
-                 '9cd7cc23-26b5-4c60-906c-4dd6ed35715a']
+    widths = [338, 696]
+    data_uuid = ['ef0b9cb0-a2d5-48eb-8cbf-0dcf4cc79ba0']
