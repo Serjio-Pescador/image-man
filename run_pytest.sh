@@ -25,7 +25,7 @@ if [[ $2 ]]; then
   if ! [[ $2 =~ $re ]] ; then
     echo -e "${RED}ERROR: Not a number for WORKERS!${ENDCOLOR}" >&2; exit 1
   else
-    WORKERS=$1
+    WORKERS=$2
   fi
 else
     WORKERS=6
