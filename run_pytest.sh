@@ -1,14 +1,60 @@
+#! /usr/bin/env bash
+
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[0;33m"
+ENDCOLOR="\033[0m"
+
+
 if [[ "$OSTYPE" =~ ^msys ]]; then
     OS=Scripts
 else
+    # shellcheck disable=SC2034
     OS=bin
-fi &&
+fi
+
+if [[ $1 ]]; then
+  REPEATFAILED=true
+else
+  REPEATFAILED=false
+fi
+
+re='^[0-9]+$'
+
+if [[ $2 ]]; then
+  if ! [[ $2 =~ $re ]] ; then
+    echo -e "${RED}ERROR: Not a number for WORKERS!${ENDCOLOR}" >&2; exit 1
+  else
+    WORKERS=$1
+  fi
+else
+    WORKERS=6
+fi
+
 
 #source venv/$OS/activate
+echo -e "${GREEN}Remove directory ./screenshots${ENDCOLOR}"
 rm -r ./screenshots
+
+echo -e "${GREEN}Update date in log file${ENDCOLOR}"
 python3 update_pytest_ini.py
+
+echo -e "${GREEN}Clean allure report folder${ENDCOLOR}"
 python3 -m pytest --alluredir allure-results --clean-alluredir
-python3 -m pytest tests/*.py --image-snapshot-save-diff --alluredir allure-results -n 6
-python3 -m pytest tests/* --image-snapshot-save-diff --alluredir allure-results --lf -n 3
+
+echo -e "${GREEN}START TESTs${ENDCOLOR}"
+python3 -m pytest tests/* --image-snapshot-save-diff --alluredir allure-results -n "${WORKERS}"
+echo -e "${GREEN}First iteration complete!${ENDCOLOR}"
+
+if ${REPEATFAILED}; then
+  echo -e "${YELLOW}START SECOND TESTs ITERATION${ENDCOLOR}"
+  python3 -m pytest tests/* --image-snapshot-save-diff --alluredir allure-results --lf -n "${WORKERS}"
+  echo -e "${GREEN}Second iteration complete!${ENDCOLOR}"
+fi
+
+echo -e "${YELLOW}-------------------------------${ENDCOLOR}"
+echo -e "${YELLOW}|   Opening allure-report...  | ${ENDCOLOR}"
+echo -e "${YELLOW}-------------------------------${ENDCOLOR}"
 allure serve allure-results --port 9999
+
 #deactivate
