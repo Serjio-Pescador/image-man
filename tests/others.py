@@ -17,7 +17,7 @@ im_pre = os.getenv("IM_PRE")
 
 
 @allure.story('Использование различных пресетов и контента')
-class TestTitles:
+class TestOthers:
     @pytest.mark.parametrize("preset", OtherPresets.presets.value)
     @pytest.mark.parametrize("data_uuid", OtherPresets.data_uuid.value)
     @allure.title("{data_uuid} - {preset}")
