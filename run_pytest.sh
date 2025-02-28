@@ -35,6 +35,7 @@ fi
 
 
 #source venv/$OS/activate
+clear
 echo -e "${YELLOW}Remove directory ./screenshots${ENDCOLOR}"
 rm -r ./screenshots
 
@@ -48,6 +49,9 @@ echo -e "${GREEN}--->  START TESTs  <---${ENDCOLOR}"
 python3 -m pytest tests/* --image-snapshot-save-diff --alluredir allure-results -n "${WORKERS}"
 echo -e "${GREEN}First iteration complete!${ENDCOLOR}"
 
+echo -e "${GREEN}Update log file date...${ENDCOLOR}"
+python3 update_pytest_ini.py
+
 if ${REPEATFAILED}; then
   echo -e "${BLUE}START SECOND TESTs ITERATION${ENDCOLOR}"
   python3 -m pytest tests/* --image-snapshot-save-diff --alluredir allure-results --lf -n "${WORKERS}"
@@ -55,7 +59,7 @@ if ${REPEATFAILED}; then
 fi
 
 echo -e "${YELLOW}-------------------------------${ENDCOLOR}"
-echo -e "${YELLOW}|   Opening allure-report...  | ${ENDCOLOR}"
+echo -e "${YELLOW}|   Opening allure-report...  |${ENDCOLOR}"
 echo -e "${YELLOW}-------------------------------${ENDCOLOR}"
 allure serve allure-results --port 9999
 

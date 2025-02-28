@@ -27,7 +27,11 @@ def make_new_url_tail_rounded_width(base_tail: str) -> tuple[str, int]:
     query_params = parse_qs(base_tail)
     width: int = int(query_params['width'][0])
     new_width: int = 1
-    if width % 10 == 0:
+    if width < 10:
+        new_width = 10
+    elif width < 100:
+        new_width = width // 10 + 9
+    elif width % 10 == 0:
         new_width = width
     elif 99 >= width % 100 > 80:
         new_width = width // 100 * 100 + 99

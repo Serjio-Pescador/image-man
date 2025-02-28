@@ -8,7 +8,7 @@ test_config.read('pytest.ini')
 
 name_file = str(test_config['pytest']['log_file'])
 logging.basicConfig(filename=name_file)
-handler = RotatingFileHandler(name_file, maxBytes=1024, backupCount=10)
+handler = RotatingFileHandler(name_file, maxBytes=10240, backupCount=1)
 
 
 log_format = "%(asctime)s - [%(levelname)s] - %(name)s - (%(filename)s).%(funcName)s(%(lineno)d) - %(message)s"
