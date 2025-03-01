@@ -1,0 +1,6 @@
+./allure-results.zip
+./allure-results
+.gitignore
+.idea
+./screenshots
+./logs

@@ -27,5 +27,5 @@ allure serve allure-results
 
 ### Docker
 docker build -t tests .
-docker run -d tests --mount source=screenshots,target=./screenshots --name=pytest 
-docker run -d tests --mount source=screenshots,target=./screenshots pytest   
+docker run -d --env-file .env tests --mount source=screenshots,target=./screenshots
+ 
