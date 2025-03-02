@@ -6,3 +6,5 @@ python-dotenv ==1.0.1
 pillow==10.3.0
 requests==2.32.3
 pixelmatch==0.3.0
+allure-pytest==2.13.5
+pytest-xdist==3.6.1

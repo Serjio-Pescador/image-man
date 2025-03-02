@@ -7,8 +7,7 @@ services:
     ports:
       - "5050:5050"
     volumes:
-      - ${PWD}/allure-results:/app/allure-results
-#      - ${PWD}/allure-reports:/app/default-reports
+      - allure-results:/app/allure-results
 
   allure-ui:
     image: "frankescobar/allure-docker-service-ui"
@@ -18,16 +17,25 @@ services:
     ports:
       - "5252:5252"
 
-  tests:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: "python:3.12-slim"
-    ports:
-      - "8000:8000"
+    environment:
+      HOST: ${HOST}
+      STATIC_URL: ${STATIC_URL}
+      IM_PRE: ${IM_PRE}
+      IM_PROD: ${IM_PROD}
+      WORKERS: 6
+    image: python:3.12-slim
+    command: /bin/bash -c run_docker.sh last_failed 4
     volumes:
-      - ${PWD}/allure-results:/app/allure-results
-      - ${PWD}/screenshots:/app/screenshots
+      - allure-results:/app/allure-results
+      - ./:/app
     depends_on:
       - allure
       - allure-ui
+
+volumes:
+  allure-results:
+  app:

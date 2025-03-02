@@ -29,3 +29,8 @@ allure serve allure-results
 docker build -t tests .
 docker run -d --env-file .env tests --mount source=screenshots,target=./screenshots
  
+## START in DOCKER TESTS and ALLURE-REPORT
+docker compose build
+docker compose --env-file .env up -d
+
+
