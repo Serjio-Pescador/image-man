@@ -1,10 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-import ssl
 import cloudscraper
-import socket
 from http import cookies
-import json
 import ssl
 import urllib3
 from urllib3 import PoolManager
@@ -17,14 +14,16 @@ c = cookies.SimpleCookie()
 
 s = cloudscraper.create_scraper(delay=20, browser={'custom': 'ScraperBot/1.0'})
 
+
 class MyAdapter(HTTPAdapter):
-    def init_poolmanager(self, connections, maxsize, block=False):
+    def init_poolmanager(self, connections, maxsize, block=False, **kwargs):
         self.poolmanager = PoolManager(
             num_pools=connections,
             maxsize=maxsize,
             block=block,
             ssl_version=ssl.TLSVersion.TLSv1_3
         )
+
 
 sess = requests.session()
 sess.proxies.update({
@@ -33,26 +32,31 @@ sess.proxies.update({
 
 sess.mount("https://", MyAdapter())
 
+# host = ''
+host = 'pre.'
 
-domain = 'https://pre.okko.sport/'
-# domain = 'https://okko.sport/'
-# domain = 'https://okko.tv/'
-routes = ['tournament/jupiler-pro-league-24-25', 'tournament/ligue-2-bkt-24-25', 'sport_collection/cybersport', 'sport_collection/5d658271-1736-3215-a420-0cc3e2b75a20']
+domain = f"https://{host}okko.sport/"
+# domain = 'https://{host}okko.tv/'
+routes = ['tournament/jupiler-pro-league-24-25', 'tournament/ligue-2-bkt-24-25', 'sport_collection/cybersport',
+          'sport_collection/5d658271-1736-3215-a420-0cc3e2b75a20']
 
 # url = "tournament/jupiler-pro-league-24-25"
 # route = "tournament/isu-world-championships-2024"
-route = "sport_collection/editoral-programms-mma"
+# route = "sport_collection/editoral-programms-mma"
+# route = "sport_collection/608ce1be-1c92-3436-af9e-89f221421034"
+route = "tournament/cs-2-perfect-world-shanghai-major-2024"
+
 # url = "https://okko.sport/tournament/ligue-2-bkt-24-25"
 # url = "https://okko.sport/sport_collection/cybersport"
 
-session_param = "?clientSessionId=19558aa6-4796-7aaa-b0c0-9a6feb939983&sso=false"
+session_param = "?clientSessionId=19558dbf-3a14-7aaa-2236-96f4cbf89cb6&sso=false"
 
-url = domain + route
+url = domain + route #+ session_param
 print(url)
 
 # with open('okko.sport.json') as f:
 #     d = json.load(f)
-    # print(d)
+# print(d)
 
 cookie = ("isCrawler=false; _sa=SA1.cbe2d1d3-6cb0-41f1-8b0d-b119090de73d.1740569789; _ym_uid=1740569790987129875; "
           "_ym_d=1740569790; tmr_lvid=85149b1cc2bc0ba163f2ef7f115c6f84; tmr_lvidTS=1740569789959; "
@@ -98,18 +102,28 @@ headers = {
     "upgrade-insecure-requests": "1",
     "Origin": "*.okko.sport",
     # "Referrer Policy": "strict-origin-when-cross-origin",
-    # "cookie": {cookie}
+    "cookie": "odid=19558ebe-948c-7aaa-69ee-30ea77227318"
 }
 
 proxies = {
 
 }
 
+r = s.get(url, headers=headers, allow_redirects=True, verify=False)
+if r.history:
+    print("Request was redirected")
+    for resp in r.history:
+        print(resp.status_code, resp.url)
+    print("Final destination:")
+    print(r.status_code, r.url)
+else:
+    print("Request was not redirected")
 
-r = s.get(url, headers=headers, verify=False)
+
 print(r.status_code)
 
 bs = BeautifulSoup(r.text, 'lxml')
+# print(bs)
 data = bs.select("picture", {"class": "NCBBdh36 rfa0EE5_"}.get('source'))
 print(data)
 
@@ -119,10 +133,15 @@ found_data2 = []
 urlparse("scheme://netloc/path;parameters?query=fragment")
 urls = []
 
+if host:
+    stat_url = "https://pre-static.okko.tv"
+else:
+    stat_url = "https://static.okko.tv"
+
 for elem in data:
     el = str(elem).replace("amp;", '').split(' ')
     for i in el:
-        if i.startswith("https://static.okko.tv"):
+        if i.startswith(stat_url):
             o = url.split('?')[0].split('&')
             if i not in urls:
                 urls.append(i)
@@ -133,7 +152,6 @@ for elem in data:
 
 for i in range(len(found_data1)):
     print(found_data1[i], '=', found_data2[i])
-
 
 list_uuid_used_preset = []
 for j, element in enumerate(found_data2):
