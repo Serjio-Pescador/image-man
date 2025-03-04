@@ -24,12 +24,13 @@ presets_for_test = []
 for x in range(len(PresetData.preset_3360.value)):
     presets_for_test.append(presets[(x % 3)])
 # print(presets_for_test)
+uuids = PresetData.preset_3360.value
 
 
 @allure.story('Новые обзоры и моменты')
 class TestNewSportReview:
     @pytest.mark.parametrize("required_width", widths)
-    @pytest.mark.parametrize("review_uuid, preset", PresetData.preset_3360.value, presets_for_test)
+    @pytest.mark.parametrize("review_uuid, preset", list(zip(PresetData.preset_3360.value, presets_for_test)))
     @allure.title("{review_uuid}_{preset} - {required_width}")
     def test_new_sport_review(self, image_snapshot, preset, review_uuid, required_width):
         logger.info("uuid: %s", review_uuid)
@@ -48,7 +49,7 @@ class TestNewSportReview:
         response_im = check_response(image_manager_url)
 
         name_file = f"uuid_{review_uuid}_{preset}_width_{required_width}"
-        make_screenshot(response_im, img_uuid=name_file)
+        make_screenshot(response_im, img_uuid=name_file, required_width=response_width)
 
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
         logger.info("static url: %s", stat_img_url)

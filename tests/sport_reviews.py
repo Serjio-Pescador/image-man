@@ -45,7 +45,7 @@ class TestSportReviews:
         response_im = check_response(image_manager_url)
 
         name_file = f"uuid_{review_uuid}_{preset}_width_{required_width}"
-        make_screenshot(response_im, img_uuid=name_file, required_width=required_width)
+        make_screenshot(response_im, img_uuid=name_file, required_width=response_width)
 
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
         logger.info("static url: %s", stat_img_url)

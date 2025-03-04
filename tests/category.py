@@ -33,8 +33,9 @@ class TestCategory:
         # three_random_uuids = str(tuple(test_list))[1:-1]
         three_random_uuids = str(tuple(test_list)).replace("'", '').replace(" ", '')
         logger.info("Category uuid: %s", three_random_uuids)
+        test_width = 531
 
-        query_tail = f"title={title}&presetId={preset}&width=531&scale=2&quality=80&mediaType=webp"
+        query_tail = f"title={title}&presetId={preset}&width={test_width}&scale=2&quality=80&mediaType=webp"
 
         image_manager_url = f"{im_prod}{str(three_random_uuids)[1:-1]}?{query_tail}"
         logger.info("Image-Manager PROD url: %s", image_manager_url)
@@ -45,7 +46,7 @@ class TestCategory:
 
         name_screenshot = f"{preset}_{three_random_uuids.replace(',', '_')[1:-1:2]}"
         logger.info("Short name of screenshot: %s", name_screenshot)
-        make_screenshot(response_im, img_uuid=name_screenshot, required_width=531)
+        make_screenshot(response_im, img_uuid=name_screenshot, required_width=test_width)
 
         pre_url = f"{im_pre}{str(three_random_uuids)[1:-1]}?{query_tail}"
         logger.info("Image-Manager PRE url: %s", pre_url)
@@ -54,7 +55,7 @@ class TestCategory:
         if response_pre.status_code == 400:
             pytest.fail(" -> Bad request to PRE <- ")
 
-        compare_screenshot(response_pre, image_snapshot, img_uuid=name_screenshot, diff=0.3)
+        compare_screenshot(response_pre, image_snapshot, required_width=test_width, img_uuid=name_screenshot, diff=0.3)
 
     if __name__ == "__main__":
         test_category_preset()
