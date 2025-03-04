@@ -26,16 +26,17 @@ class TestTvChannels:
     def test_tv_preset(self, image_snapshot, preset, tv_channel_uuid):
 
         logger.info("TV channel uuid: %s", tv_channel_uuid)
+        height = 79
 
         query_tail = f"presetId={preset}&clienttype=tv&mediatype=png&height=72"
-        query_im = f"clienttype=tv&height=79&mediatype=png&presetid={preset}"
+        query_im = f"clienttype=tv&height={height}&mediatype=png&presetid={preset}"
 
         image_manager_url = f"{host_url}{tv_channel_uuid}?{query_im}"
         logger.info("IM url: %s", image_manager_url)
         response_im = check_response(image_manager_url)
 
         name_screenshot = f"{preset}_{tv_channel_uuid}"
-        make_screenshot(response_im, img_uuid=name_screenshot)
+        make_screenshot(response_im, img_uuid=name_screenshot, required_height=height)
 
         stat_img_url = f"{static_url}{tv_channel_uuid}?{query_tail}"
         logger.info("static url: %s", stat_img_url)

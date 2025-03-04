@@ -2,8 +2,6 @@
 Autotests image-manager
 
 
-
-
 ### pytest
 
 pytest tests/letterspacing.py --image-snapshot-update

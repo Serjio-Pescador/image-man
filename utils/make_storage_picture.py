@@ -24,7 +24,7 @@ def make_screenshot(self, img_uuid,
                 image_manager_img_height)
 
     allure_attach_image(abs_file_path, img_uuid)
-    # compare_two_digital(required_width, image_manager_img_width, "WIDTH")
-    # compare_two_digital(required_height, image_manager_img_height, "HEIGHT")
+    compare_two_digital(required_width, image_manager_img_width, "WIDTH")
+    compare_two_digital(required_height, image_manager_img_height, "HEIGHT")
 
     return
