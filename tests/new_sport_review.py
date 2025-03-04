@@ -18,17 +18,20 @@ load_dotenv()
 host_url = os.getenv("HOST")
 static_url = os.getenv("STATIC_URL")
 
-data = maker_of_test_data(PresetData)
+presets = [3670, 3672, 3675]
+widths = [253, 350, 531, 637, 700]
+presets_for_test = []
+for x in range(len(PresetData.preset_3360.value)):
+    presets_for_test.append(presets[(x % 3)])
+# print(presets_for_test)
 
 
-@allure.story('Спорт матчи и обзоры')
-class TestSportReviews:
-    @pytest.mark.parametrize("required_width", WidthSportReview.required_width.value)
-    @allure.title("{review_uuid} - {required_width}")
-    @pytest.mark.parametrize("preset, review_uuid",
-                             data
-                             )
-    def test_sport_preset(self, image_snapshot, preset, review_uuid, required_width):
+@allure.story('Новые обзоры и моменты')
+class TestNewSportReview:
+    @pytest.mark.parametrize("required_width", widths)
+    @pytest.mark.parametrize("review_uuid, preset", PresetData.preset_3360.value, presets_for_test)
+    @allure.title("{review_uuid}_{preset} - {required_width}")
+    def test_new_sport_review(self, image_snapshot, preset, review_uuid, required_width):
         logger.info("uuid: %s", review_uuid)
 
         if required_width < 350:
@@ -45,7 +48,7 @@ class TestSportReviews:
         response_im = check_response(image_manager_url)
 
         name_file = f"uuid_{review_uuid}_{preset}_width_{required_width}"
-        make_screenshot(response_im, img_uuid=name_file, required_width=required_width)
+        make_screenshot(response_im, img_uuid=name_file)
 
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
         logger.info("static url: %s", stat_img_url)
@@ -55,4 +58,4 @@ class TestSportReviews:
         compare_screenshot(response_static, image_snapshot, img_uuid=name_file, required_width=response_width)
 
     if __name__ == "__main__":
-        test_sport_preset()
+        test_new_sport_review()

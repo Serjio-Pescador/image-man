@@ -45,7 +45,7 @@ class TestCategory:
 
         name_screenshot = f"{preset}_{three_random_uuids.replace(',', '_')[1:-1:2]}"
         logger.info("Short name of screenshot: %s", name_screenshot)
-        make_screenshot(response_im, img_uuid=name_screenshot)
+        make_screenshot(response_im, img_uuid=name_screenshot, required_width=531)
 
         pre_url = f"{im_pre}{str(three_random_uuids)[1:-1]}?{query_tail}"
         logger.info("Image-Manager PRE url: %s", pre_url)

@@ -8,6 +8,8 @@ from urllib3 import PoolManager
 from urllib.parse import urlparse
 from urllib import parse
 from requests.adapters import HTTPAdapter
+from urllib.request import urlopen
+
 
 urllib3.disable_warnings()
 c = cookies.SimpleCookie()
@@ -43,8 +45,8 @@ routes = ['tournament/jupiler-pro-league-24-25', 'tournament/ligue-2-bkt-24-25',
 # url = "tournament/jupiler-pro-league-24-25"
 # route = "tournament/isu-world-championships-2024"
 # route = "sport_collection/editoral-programms-mma"
-# route = "sport_collection/608ce1be-1c92-3436-af9e-89f221421034"
-route = "tournament/cs-2-perfect-world-shanghai-major-2024"
+route = "sport_collection/608ce1be-1c92-3436-af9e-89f221421034"
+# route = "tournament/cs-2-perfect-world-shanghai-major-2024"
 
 # url = "https://okko.sport/tournament/ligue-2-bkt-24-25"
 # url = "https://okko.sport/sport_collection/cybersport"
@@ -108,6 +110,15 @@ headers = {
 proxies = {
 
 }
+
+# короткая реализаация без requests
+# with urlopen(url) as response:
+#     response_status = response.status  # сохраняем статус запроса в переменную
+#     html = response.read()  # вычитываем ответ в переменную
+#
+# print(response_status == 200)  # проверяем успешен ли запрос
+# print(html.decode())  # выводим полученный ответ на экран
+
 
 r = s.get(url, headers=headers, allow_redirects=True, verify=False)
 if r.history:
