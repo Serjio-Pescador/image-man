@@ -72,19 +72,22 @@ def allure_attach_image(src_path, img_uuid, suffix: str = ''):
     return
 
 
-def compare_two_digital(from_request: int, from_image: int, name: str):
-    if from_request:
-        # with allure.step("Проверяем {} изображения".format(name)):
-            try:
-                # Допустимое расхождение размеров 1 пиксель
-                assert abs(from_request - from_image) <= 1, f" Different {name} of image!"
-            except AssertionError:
-                with allure.step("Different {}! {} != {}".format(name, from_request, from_image)):
-                    logger.error("Different %s! %s != %s", name, from_request, from_image)
-            else:
-                with allure.step("{} изображения. {} == {}".format(name, from_request, from_image)):
-                    logger.info("Equal %s! %s == %s", name, from_request, from_image)
-    return None
+def compare_two_digital(from_request: int, from_image: int, name: str) -> bool:
+    try:
+        # Допустимое расхождение размеров 1 пиксель
+        assert abs(from_request - from_image) <= 1, f" Different {name} of image!"
+    except AssertionError:
+        with allure.step("Different {}! {} != {}".format(name, from_request, from_image)):
+            logger.error("Different %s! %s != %s", name, from_request, from_image)
+            pytest.fail("Different {} of image!".format(name))
+    else:
+        with allure.step("{} изображения. {} == {}".format(name, from_request, from_image)):
+            logger.info("Equal %s! %s == %s", name, from_request, from_image)
+    finally:
+        if from_request is not None:
+            return from_request == from_image
+        else:
+            return True
 
 
 def compare_two_string(first_str: str, second_str: int, name: str) -> bool:

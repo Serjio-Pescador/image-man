@@ -32,7 +32,6 @@ def make_screenshot(self, img_uuid,
 
     with allure.step("Изображение из ИМ"):
         allure_attach_image(abs_file_path, img_uuid)
-    compare_two_digital(required_width, image_manager_img_width, "WIDTH")
-    compare_two_digital(required_height, image_manager_img_height, "HEIGHT")
-
+    assert compare_two_digital(required_width, image_manager_img_width, "WIDTH"), "Different WIDTH"
+    assert compare_two_digital(required_height, image_manager_img_height, "HEIGHT"), "Different HEIGHT"
     return
