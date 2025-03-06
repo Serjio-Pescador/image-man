@@ -10,13 +10,15 @@ from utils.receive_response import check_response
 from utils.utils_func import remove_prefix, remove_suffix
 from static.link_for_test import LinkData, LinkNotValid
 from utils.app_logger import get_logger
+from utils.utils_func import compare_two_string
 
 
 logger = get_logger(__name__)
 
 load_dotenv()
 
-host_url = os.getenv("HOST")
+im_url = os.getenv("HOST")
+static_url = os.getenv("STATIC_URL")
 
 data = maker_of_test_data(LinkData)
 invalid_data = maker_of_test_data(LinkNotValid)
@@ -32,15 +34,22 @@ class TestExternalLinks:
 
         logger.info("Link is %s: %s", kind, link)
 
-        image_manager_url = f"{host_url}{link}"
+        image_manager_url = f"{im_url}{link}"
+        logger.info("IM url: %s", image_manager_url)
+        file_name = kind + "_" + re.sub(r'[^a-zA-Z0-9]', '_', link)[0::3]
+
+        response_im = check_response(image_manager_url)
+        make_screenshot(response_im, img_uuid=file_name)
+
+        image_manager_url = f"{im_url}{link}"
         logger.info("IM url: %s", image_manager_url)
 
-        file_name = re.sub(r'[^a-zA-Z0-9]', '_', link)
+        stat_img_url = f"{static_url}{link}"
+        logger.info("static url: %s", stat_img_url)
+        response_static = check_response(stat_img_url)
 
-        response = check_response(image_manager_url)
-
-        make_screenshot(response, img_uuid=file_name)
-        compare_screenshot(response, image_snapshot, img_uuid=file_name, diff=0.3)
+        compare_two_string(response_im.headers.get('etag'), response_static.headers.get('etag'), "ETAG")
+        compare_screenshot(response_static, image_snapshot, img_uuid=file_name, diff=0.3)
 
     if __name__ == "__main__":
         test_external_link()
@@ -57,15 +66,20 @@ class TestExternalLinks:
         modified_link = remove_prefix(modified_link, "%5B")
         modified_link = remove_suffix(modified_link, "%5D")
 
-        image_manager_url = f"{host_url.replace('images/v4/', 'external/v1/')}{modified_link}"
+        image_manager_url = f"{im_url.replace('images/v4/', 'external/v1/')}{modified_link}"
         logger.info("IM url: %s", image_manager_url)
 
-        file_name = re.sub(r'[^a-zA-Z0-9]', '_', link)
+        file_name = re.sub(r'[^a-zA-Z0-9]', '_v1_', link)
 
-        response = check_response(image_manager_url)
+        response_im = check_response(image_manager_url)
+        make_screenshot(response_im, img_uuid=file_name)
 
-        make_screenshot(response, img_uuid=file_name)
-        compare_screenshot(response, image_snapshot, img_uuid=file_name, diff=0.3)
+        stat_img_url = f"{static_url.replace('images/v4/', 'external/v1/')}{modified_link}"
+        logger.info("static url: %s", stat_img_url)
+        response_static = check_response(stat_img_url)
+
+        compare_two_string(response_im.headers.get('etag'), response_static.headers.get('etag'), "ETAG")
+        compare_screenshot(response_static, image_snapshot, img_uuid=file_name, diff=0.3)
 
     if __name__ == "__main__":
         test_external_link_new_api()
@@ -78,14 +92,27 @@ class TestExternalLinks:
         logger.info("Link is %s: %s", kind, link)
 
         modified_link = str(link).replace('[', '').replace(']', '')
-        image_manager_url = f"{host_url.replace('images/v4/', 'external/v1/')}{modified_link}"
+        image_manager_url = f"{im_url.replace('images/v4/', 'external/v1/')}{modified_link}"
         logger.info("IM url: %s", image_manager_url)
 
-        check_response(image_manager_url)
-        if check_response(image_manager_url).status_code in [400, 403]:
-            pass
-        else:
-            pytest.fail(" -> Link is valid! I can open it!!! <- ")
+        response_im = check_response(image_manager_url)
+
+        with allure.step("Проверка доступности контента в IM"):
+            if response_im.status_code in [400, 403]:
+                pass
+            else:
+                pytest.fail(" -> Link is valid! I can open it!!! <- ")
+
+        stat_img_url = f"{static_url.replace('images/v4/', 'external/v1/')}{modified_link}"
+        logger.info("static url: %s", stat_img_url)
+
+        response_static = check_response(stat_img_url)
+
+        with allure.step("Проверка доступности контента в статике"):
+            if response_static.status_code in [400, 403]:
+                pass
+            else:
+                pytest.fail(" -> Link is valid! I can open it!!! <- ")
 
     if __name__ == "__main__":
         test_external_link_invalid()
