@@ -30,7 +30,6 @@ def compare_screenshot(self, image_snapshot, img_uuid, diff: float = 0.5,
         try:
             image_snapshot(picture, f"{abs_file_path}", diff)
         except Exception as e:
-        # except Exception as e:
             # logger.error("Image does not match the snapshot stored in screenshots.", e)
             logger.error("Image does not match the snapshot stored in screenshots.")
             allure_attach_image(src_path=f"{abs_file_path}",

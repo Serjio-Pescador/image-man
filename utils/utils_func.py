@@ -6,7 +6,6 @@ from urllib.parse import parse_qs
 from pathlib import Path
 from utils.app_logger import get_logger
 
-
 logger = get_logger(__name__)
 
 
@@ -75,17 +74,28 @@ def allure_attach_image(src_path, img_uuid, suffix: str = ''):
 
 def compare_two_digital(from_request: int, from_image: int, name: str):
     if from_request:
-        # if from_request != from_image:
-        # Допустимое расхождение размеров 1 пиксель
-        if abs(from_request - from_image) > 1:
-            logger.error("Different %s! %s != %s", name, from_request, from_image)
-            pytest.fail(f" Different {name} of image! ")
+        # with allure.step("Проверяем {} изображения".format(name)):
+            try:
+                # Допустимое расхождение размеров 1 пиксель
+                assert abs(from_request - from_image) <= 1, f" Different {name} of image!"
+            except AssertionError:
+                with allure.step("Different {}! {} != {}".format(name, from_request, from_image)):
+                    logger.error("Different %s! %s != %s", name, from_request, from_image)
+            else:
+                with allure.step("{} изображения. {} == {}".format(name, from_request, from_image)):
+                    logger.info("Equal %s! %s == %s", name, from_request, from_image)
     return None
 
 
-def compare_two_string(first_str: str, second_str: int, name: str) -> str:
-    if first_str != second_str:
-        logger.warning("different %s! %s != %s", name, first_str, second_str)
+def compare_two_string(first_str: str, second_str: int, name: str) -> bool:
+    try:
+        assert first_str == second_str, f"Different {name} of image!"
+    except AssertionError:
+        with allure.step("Different {}! {} != {}".format(name, first_str, second_str)):
+            logger.warning("Different %s! %s != %s", name, first_str, second_str)
+            pytest.fail("Different {} of image!".format(name))
     else:
-        logger.info("Equal %s. %s == %s", name, first_str, second_str)
-    return f"Equal %s is %s.".format(name, first_str == second_str)
+        with allure.step("Equal {}! {} == {}".format(name, first_str, second_str)):
+            logger.info("Equal %s. %s == %s", name, first_str, second_str)
+    finally:
+        return first_str == second_str
