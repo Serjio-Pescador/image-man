@@ -25,6 +25,7 @@ invalid_data = maker_of_test_data(LinkNotValid)
 
 
 @allure.story('Внешние ссылки и ключи')
+@allure.severity(severity_level="Critical")
 class TestExternalLinks:
     @allure.title('External link/key OLD')
     @pytest.mark.parametrize("kind, link",

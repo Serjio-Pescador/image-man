@@ -4,12 +4,11 @@ import os
 from dotenv import load_dotenv
 from utils.compare_picture import compare_screenshot
 from utils.make_storage_picture import make_screenshot
-from utils.utils_func import maker_of_test_data, make_new_url_tail_rounded_width
+from utils.utils_func import make_new_url_tail_rounded_width
 from utils.receive_response import check_response
 from static.test_uuid import PresetData, WidthSportReview
 from utils.app_logger import get_logger
 from utils.utils_func import compare_two_string
-
 
 logger = get_logger(__name__)
 
@@ -18,20 +17,22 @@ load_dotenv()
 host_url = os.getenv("HOST")
 static_url = os.getenv("STATIC_URL")
 
-presets = [3670, 3672, 3675]
+presets = [3670, 3671, 3674, 3675]
 widths = [253, 350, 531, 637, 700]
 presets_for_test = []
 for x in range(len(PresetData.preset_3360.value)):
-    presets_for_test.append(presets[(x % 3)])
+    presets_for_test.append(presets[(x % 4)])
 # print(presets_for_test)
 uuids = PresetData.preset_3360.value
 
 
 @allure.story('Новые обзоры и моменты')
+@allure.label('owner', "s.rybak@okko.tv")
 class TestNewSportReview:
     @pytest.mark.parametrize("required_width", widths)
     @pytest.mark.parametrize("review_uuid, preset", list(zip(PresetData.preset_3360.value, presets_for_test)))
     @allure.title("{review_uuid}_{preset} - {required_width}")
+    @allure.issue("DEV-149843")
     def test_new_sport_review(self, image_snapshot, preset, review_uuid, required_width):
         logger.info("uuid: %s", review_uuid)
 
@@ -55,6 +56,7 @@ class TestNewSportReview:
         logger.info("static url: %s", stat_img_url)
         response_static = check_response(stat_img_url)
 
+        # with allure.step("Сравниваем ETAG ИМ и статики:"):
         compare_two_string(response_im.headers.get('etag'), response_static.headers.get('etag'), "ETAG")
         compare_screenshot(response_static, image_snapshot, img_uuid=name_file, required_width=response_width)
 
