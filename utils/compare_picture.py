@@ -1,3 +1,4 @@
+import allure
 import pytest
 from PIL import Image
 import io
@@ -19,21 +20,24 @@ def compare_screenshot(self, image_snapshot, img_uuid, diff: float = 0.5,
     #         setattr(self, key, kwargs[key])
 
     abs_file_path = get_file_name(src_path, img_uuid)
-    picture = Image.open(io.BytesIO(self.content))
-
-    try:
-        # allure_attach_image(src_path=img_uuid,
-        #                     img_uuid=f"{test_name}_{img_uuid}.png")
-        image_snapshot(picture, f"{abs_file_path}", diff)
-    except Exception as e:
-        # logging.error("Image does not match the snapshot stored in screenshots.", e)
-        logger.error("Image does not match the snapshot stored in screenshots.")
-        allure_attach_image(src_path=f"{abs_file_path}",
-                            img_uuid=f"{img_uuid}", suffix='.new')
-        allure_attach_image(src_path=f"{abs_file_path}",
-                            img_uuid=f"{img_uuid}", suffix='.diff')
-
-        pytest.fail("Image does not match the snapshot stored in screenshots.", e)
+    with allure.step("Проверка на контент 0"):
+        if self.content:
+            picture = Image.open(io.BytesIO(self.content))
+        else:
+            logger.error("Content-legnth: 0")
+            pytest.fail("Content-legnth: 0")
+    with allure.step("Сравнивание изображений"):
+        try:
+            image_snapshot(picture, f"{abs_file_path}", diff)
+        except Exception as e:
+        # except Exception as e:
+            # logger.error("Image does not match the snapshot stored in screenshots.", e)
+            logger.error("Image does not match the snapshot stored in screenshots.")
+            allure_attach_image(src_path=f"{abs_file_path}",
+                                img_uuid=f"{img_uuid}", suffix='.new')
+            allure_attach_image(src_path=f"{abs_file_path}",
+                                img_uuid=f"{img_uuid}", suffix='.diff')
+            pytest.fail("Image does not match the snapshot.", e)
 
     static_img_width, static_img_height = picture.size
     logger.info("static_img_width=%s, static_img_height=%s", static_img_width, static_img_height)
