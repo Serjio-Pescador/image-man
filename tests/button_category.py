@@ -42,14 +42,14 @@ class TestButtonsCategory:
         response_im = check_response(image_manager_url)
 
         name_file = f"uuid_{data_uuid}_{preset}_width_{required_width}"
-        make_screenshot(response_im, img_uuid=name_file, required_width=required_width)
+        make_screenshot(response_im, img_uuid=name_file)
 
         stat_img_url = f"{static_url}{data_uuid}?{query_tail}"
         logger.info("static url: %s", stat_img_url)
         response_static = check_response(stat_img_url)
 
         compare_two_string(response_im.headers.get('etag'), response_static.headers.get('etag'), "ETAG")
-        compare_screenshot(response_static, image_snapshot, img_uuid=name_file, required_width=response_width)
+        compare_screenshot(response_static, image_snapshot, img_uuid=name_file)
 
     if __name__ == "__main__":
         test_sport_preset()
