@@ -22,7 +22,6 @@ class LinkData(Enum):
                        '[aHR0cHM6Ly9jZG40Mi56dnVrLmNvbS9waWM_dHlwZT1hcnRpc3QmaWQ9Mjk0MTc2]?presetid=001',
                        '[aHR0cHM6Ly9jZG41Mi56dnVrLmNvbS9waWM_dHlwZT1yZWxlYXNlJmlkPTE0NjQwNjMy]?size=300x300',
                        '[aHR0cHM6Ly9jZG41MS56dnVrLmNvbS9waWM_dHlwZT1yZWxlYXNlJmlkPTMwOTYxMjI0]',
-                       '[aHR0cHM6Ly9ibG9nLm9ra28udHYvdGh1bWIvc21hcnQvaW1ncy8yMDI0LzA4LzA3LzE3LzY1NTU4NDMvYWQxOGYxZmNiYTk3ZWNiYzFlZjUxNGZiMDYxN2E3MDZiY2FhMTNjNi5qcGVn]',
                        '[aHR0cHM6Ly9jZG42Ni56dnVrLmNvbS9waWM_dHlwZT1yZWxlYXNlJmlkPTMzMjI3NDQ]',
                        '[aHR0cHM6Ly9ibG9nLm9ra28udHYvdGh1bWIvc21hcnQvaW1ncy8yMDI0LzA4LzA3LzE3LzY1NTU4NDMvYWQxOGYxZmNiYTk3ZWNiYzFlZjUxNGZiMDYxN2E3MDZiY2FhMTNjNi5qcGVn]',
                        '[aHR0cHM6Ly9jZG42Mi56dnVrLmNvbS9waWM_dHlwZT1yZWxlYXNlJmlkPTMzMjI3NDY]?presetid=002',
