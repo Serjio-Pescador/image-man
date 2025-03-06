@@ -22,6 +22,7 @@ data = maker_of_test_data(PresetData)
 
 
 @allure.story('Спорт матчи и обзоры')
+@allure.label('owner', "s.rybak@okko.tv")
 class TestSportReviews:
     @pytest.mark.parametrize("required_width", WidthSportReview.required_width.value)
     @allure.title("{review_uuid} - {required_width}")

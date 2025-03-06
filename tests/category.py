@@ -18,6 +18,8 @@ im_pre = os.getenv("IM_PRE")
 
 
 @allure.story('Формирование картинки для Категорий')
+@allure.label('owner', "s.rybak@okko.tv")
+@allure.severity("Blocker")
 class TestCategory:
     @pytest.mark.parametrize("preset", Category.presets.value)
     @pytest.mark.parametrize("title", Category.titles.value)

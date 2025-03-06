@@ -17,6 +17,7 @@ im_pre = os.getenv("IM_PRE")
 
 
 @allure.story('Использование Title')
+@allure.label('owner', "s.rybak@okko.tv")
 class TestTitles:
     @pytest.mark.parametrize("preset", TitlePresets.presets.value)
     @pytest.mark.parametrize("data_uuid", TitlePresets.title_uuid.value)

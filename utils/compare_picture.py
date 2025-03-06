@@ -26,7 +26,7 @@ def compare_screenshot(self, image_snapshot, img_uuid, diff: float = 0.5,
         else:
             logger.error("Content-legnth: 0")
             pytest.fail("Content-legnth: 0")
-    with allure.step("Сравнивание изображений"):
+    with allure.step("Второе изображение и отличия"):
         try:
             image_snapshot(picture, f"{abs_file_path}", diff)
         except Exception as e:

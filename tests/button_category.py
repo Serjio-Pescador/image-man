@@ -20,6 +20,7 @@ static_url = os.getenv("STATIC_URL")
 
 
 @allure.story('Кнопки категорий с картинками')
+@allure.label('owner', "s.rybak@okko.tv")
 class TestButtonsCategory:
     @pytest.mark.parametrize("required_width", ButtonsPresets.widths.value)
     @pytest.mark.parametrize("preset", ButtonsPresets.presets.value)

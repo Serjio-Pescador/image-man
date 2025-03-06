@@ -17,6 +17,7 @@ im_pre = os.getenv("IM_PRE")
 
 
 @allure.story('Использование различных пресетов и контента')
+@allure.label('owner', "s.rybak@okko.tv")
 class TestOthers:
     @pytest.mark.parametrize("preset", OtherPresets.presets.value)
     @pytest.mark.parametrize("data_uuid", OtherPresets.data_uuid.value)

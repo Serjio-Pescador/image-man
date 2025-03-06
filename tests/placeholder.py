@@ -21,6 +21,7 @@ data = maker_of_test_data(PlaceholderPresets)
 
 
 @allure.story('Плейсхолдеры имен')
+@allure.label('owner', "s.rybak@okko.tv")
 class TestPlaceholders:
 
     @pytest.mark.parametrize("preset, name_uuid", data)

@@ -8,6 +8,8 @@ from utils.receive_response import check_response
 from static.test_uuid import TVchannels
 from utils.app_logger import get_logger
 from utils.utils_func import compare_two_string
+# from conftest import test_ops
+
 
 logger = get_logger(__name__)
 
@@ -18,13 +20,16 @@ static_url = os.getenv("STATIC_URL")
 
 
 @allure.story('ТВ каналы - height=72')
+@allure.label('owner', "s.rybak@okko.tv")
 class TestTvChannels:
-
     @pytest.mark.parametrize("preset", TVchannels.tv_presets.value)
     @pytest.mark.parametrize("tv_channel_uuid", TVchannels.tv_channel.value)
     @allure.title("{tv_channel_uuid} - {preset}")
+    @allure.issue("DEV-129400", name="DEV-129400")
+    # @allure.link("195053")
+    # @allure.link("194912")
+    # @allure.link("195049")
     def test_tv_preset(self, image_snapshot, preset, tv_channel_uuid):
-
         logger.info("TV channel uuid: %s", tv_channel_uuid)
         height = 79
 
