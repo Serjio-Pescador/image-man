@@ -6,9 +6,11 @@ from utils.compare_picture import compare_screenshot
 from utils.make_storage_picture import make_screenshot
 from utils.utils_func import make_new_url_tail_rounded_width
 from utils.receive_response import check_response
-from static.test_uuid import PresetData, WidthSportReview
+from static.test_uuid import PresetData
 from utils.app_logger import get_logger
 from utils.utils_func import compare_two_string
+from utils.utils_func import make_url_tail_in_alphabet_lower
+
 
 logger = get_logger(__name__)
 
@@ -22,7 +24,6 @@ widths = [253, 350, 531, 637, 700]
 presets_for_test = []
 for x in range(len(PresetData.preset_3360.value)):
     presets_for_test.append(presets[(x % 4)])
-# print(presets_for_test)
 uuids = PresetData.preset_3360.value
 
 
@@ -42,10 +43,9 @@ class TestNewSportReview:
             scale_factor = 2
 
         query_tail = f"presetId={preset}&width={required_width}&scale={scale_factor}&quality=80&mediaType=webp"
-        query_alphabet = f"mediatype=webp&presetid={preset}&quality=80&scale={scale_factor}&width={required_width}"
-        query_im, response_width = make_new_url_tail_rounded_width(query_alphabet)
+        query_im, response_width = make_new_url_tail_rounded_width(query_tail)
 
-        image_manager_url = f"{host_url}{review_uuid}?{query_im}"
+        image_manager_url = make_url_tail_in_alphabet_lower(f"{host_url}{review_uuid}?{query_im}")
         logger.info("IM url: %s", image_manager_url)
         response_im = check_response(image_manager_url)
 
@@ -56,7 +56,6 @@ class TestNewSportReview:
         logger.info("static url: %s", stat_img_url)
         response_static = check_response(stat_img_url)
 
-        # with allure.step("Сравниваем ETAG ИМ и статики:"):
         compare_two_string(response_im.headers.get('etag'), response_static.headers.get('etag'), "ETAG")
         compare_screenshot(response_static, image_snapshot, img_uuid=name_file, required_width=response_width)
 

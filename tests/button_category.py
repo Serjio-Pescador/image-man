@@ -9,6 +9,7 @@ from utils.receive_response import check_response
 from static.test_uuid import ButtonsPresets
 from utils.app_logger import get_logger
 from utils.utils_func import compare_two_string
+from utils.utils_func import make_url_tail_in_alphabet_lower
 
 
 logger = get_logger(__name__)
@@ -35,10 +36,9 @@ class TestButtonsCategory:
             scale_factor = 2
 
         query_tail = (f"presetId={preset}&width={required_width}&scale={scale_factor}&quality=80&mediaType=webp")
-        query_alphabet = f"mediatype=webp&presetid={preset}&quality=80&scale={scale_factor}&width={required_width}"
-        query_im, response_width = make_new_url_tail_rounded_width(query_alphabet)
+        query_im, response_width = make_new_url_tail_rounded_width(query_tail)
 
-        image_manager_url = f"{host_url}{data_uuid}?{query_im}"
+        image_manager_url = make_url_tail_in_alphabet_lower(f"{host_url}{data_uuid}?{query_im}")
         logger.info("IM url: %s", image_manager_url)
         response_im = check_response(image_manager_url)
 

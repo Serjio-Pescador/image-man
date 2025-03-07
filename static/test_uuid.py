@@ -215,22 +215,24 @@ class PresetData(Enum):
                    '031a22e7-a21e-404d-ae98-49edfb960149',
                    '38a40bb6-77bd-43eb-8492-cc863a9d83f9',
                    'd14b81fa-22e0-4e26-a990-6abb17992fc3',
-                   '02799131-4110-4368-b604-e776083d32df']
-    # preset_3629 = ['f80e5b6d-649a-4523-8ac2-8628bd78066c',
-    #                'd14b81fa-22e0-4e26-a990-6abb17992fc3',
-    #                'b3c814b7-7716-4990-8841-b9a68e5ddd7e',
-    #                'b11e7ea9-683a-413e-961c-ac15379006a0',
-    #                '829382b9-aa7d-4a08-b895-d884933095ce',
-    #                '7d041e81-292f-4bef-8e66-6516864c6cdc',
-    #                '7baf3b28-dfa3-4c43-aa38-c663ec965cff',
-    #                '65765651-4109-4631-918e-ec63c2ee62cb',
-    #                '63ac9778-496c-4ea1-b9c6-7a18fcf7f612',
-    #                '624d7d84-77db-48bb-94c6-559371478452',
-    #                '3fdc53fb-12a0-4dcd-91e1-aba5db8c7977',
-    #                '215d0132-fbe3-4a25-8126-91b56e4f8aec',
-    #                '1a9f9617-3bb8-4c46-8baa-f44f2f7371e8',
-    #                '03f994b6-4f50-433b-acb1-f69d3fd27044',
-    #                '02275ab9-9fd4-4cff-b6cc-51bc6753cf53']
+                   '7b10ddb2-0b69-4087-a98d-aaf174cb4c92',
+                   '6137ccc8-e821-41f0-af9a-fdde2afbfb7d',
+                   ]
+    preset_3630 = ['f80e5b6d-649a-4523-8ac2-8628bd78066c',
+                   'd14b81fa-22e0-4e26-a990-6abb17992fc3',
+                   'b3c814b7-7716-4990-8841-b9a68e5ddd7e',
+                   'b11e7ea9-683a-413e-961c-ac15379006a0',
+                   '829382b9-aa7d-4a08-b895-d884933095ce',
+                   '7d041e81-292f-4bef-8e66-6516864c6cdc',
+                   '7baf3b28-dfa3-4c43-aa38-c663ec965cff',
+                   '65765651-4109-4631-918e-ec63c2ee62cb',
+                   '63ac9778-496c-4ea1-b9c6-7a18fcf7f612',
+                   '624d7d84-77db-48bb-94c6-559371478452',
+                   '3fdc53fb-12a0-4dcd-91e1-aba5db8c7977',
+                   '215d0132-fbe3-4a25-8126-91b56e4f8aec',
+                   '1a9f9617-3bb8-4c46-8baa-f44f2f7371e8',
+                   '03f994b6-4f50-433b-acb1-f69d3fd27044',
+                   '02275ab9-9fd4-4cff-b6cc-51bc6753cf53']
 
 
 class PlaceholderPresets(Enum):

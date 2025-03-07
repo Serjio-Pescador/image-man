@@ -9,7 +9,6 @@ from utils.receive_response import check_response
 from static.test_uuid import Category
 from utils.app_logger import get_logger
 
-
 logger = get_logger(__name__)
 
 load_dotenv()

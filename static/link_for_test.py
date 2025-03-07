@@ -43,5 +43,6 @@ class LinkNotValid(Enum):
                     '[dHVzZDo0OGI1MzhjY2NiM2EyYTk0Yjg0OWI3MTkzNDcwOTNkZg]',
                     '[aHR0cHM6Ly9jZG42Mi56dnVrLmNvbS9waWM/dHlwZT1yZWxlYXNlJmlkPTE]',
                     '[aHR0cHM6Ly9jZG42Mi56dnVrLmNvbS9waWM/dHlwZT1yZWxlYXNlJmlkPTMzMjI3NDY=]',
-                    '[test]']
-    not_white_list = ['[aHR0cHM6Ly92ay5jb20v]']
+                    '[test_link]']
+    not_white_list = ['[aHR0cHM6Ly92ay5jb20v]',
+                      '[https://clients-static.okko.tv/graphics/logo/okko/okko-8march-full.png]']

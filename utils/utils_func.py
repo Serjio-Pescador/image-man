@@ -1,8 +1,7 @@
-from typing import Tuple
-
 import allure
 import pytest
 from urllib.parse import parse_qs
+import urllib
 from pathlib import Path
 from utils.app_logger import get_logger
 
@@ -45,6 +44,23 @@ def make_new_url_tail_rounded_width(base_tail: str) -> tuple[str, int]:
 
     query_tail_im = ("&".join(f'{k}={v[0]}' for k, v in eql_query_im.items()))
     return query_tail_im, new_width
+
+
+def make_rounded_required_size(param: int, name: str) -> int:
+    new_param: int = 1
+    if param < 10:
+        new_param = 10
+    elif param < 100:
+        new_param = param // 10 + 9
+    elif param % 10 == 0:
+        new_param = param
+    elif 99 >= param % 100 > 80:
+        new_param = param // 100 * 100 + 99
+    elif param % 20 != 0:
+        new_param = param + 20 - (param % 20)
+
+    logger.info("Required {name} in IM: %s", new_param)
+    return new_param
 
 
 def remove_prefix(text, prefix):
@@ -102,3 +118,23 @@ def compare_two_string(first_str: str, second_str: int, name: str) -> bool:
             logger.info("Equal %s. %s == %s", name, first_str, second_str)
     finally:
         return first_str == second_str
+
+
+def make_url_tail_in_alphabet_lower(base_url: str) -> str:
+    if base_url.find("?") != -1:
+        url_path, tail = base_url.split("?")
+    else:
+        url_path = ''
+        tail = base_url
+    query_params = parse_qs(tail.lower())
+    sorted_keys = dict()
+    for key in sorted(query_params):
+        sorted_keys[key] = sorted(query_params[key])
+    new_tail = urllib.parse.urlencode(sorted_keys, doseq=True)
+    if url_path:
+        final_url = url_path + '?' + new_tail
+    elif not query_params:
+        final_url = base_url
+    else:
+        final_url = new_tail
+    return final_url

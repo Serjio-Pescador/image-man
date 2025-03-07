@@ -11,6 +11,7 @@ from utils.utils_func import remove_prefix, remove_suffix
 from static.link_for_test import LinkData, LinkNotValid
 from utils.app_logger import get_logger
 from utils.utils_func import compare_two_string
+from utils.utils_func import make_url_tail_in_alphabet_lower
 
 
 logger = get_logger(__name__)
@@ -36,15 +37,12 @@ class TestExternalLinks:
 
         logger.info("Link is %s: %s", kind, link)
 
-        image_manager_url = f"{im_url}{link}"
+        image_manager_url = make_url_tail_in_alphabet_lower(f"{im_url}{link}")
         logger.info("IM url: %s", image_manager_url)
         file_name = kind + "_" + re.sub(r'[^a-zA-Z0-9]', '_', link)[0::3]
 
         response_im = check_response(image_manager_url)
         make_screenshot(response_im, img_uuid=file_name)
-
-        image_manager_url = f"{im_url}{link}"
-        logger.info("IM url: %s", image_manager_url)
 
         stat_img_url = f"{static_url}{link}"
         logger.info("static url: %s", stat_img_url)
@@ -68,7 +66,7 @@ class TestExternalLinks:
         modified_link = remove_prefix(modified_link, "%5B")
         modified_link = remove_suffix(modified_link, "%5D")
 
-        image_manager_url = f"{im_url.replace('images/v4/', 'external/v1/')}{modified_link}"
+        image_manager_url = make_url_tail_in_alphabet_lower(f"{im_url.replace('images/v4/', 'external/v1/')}{modified_link}")
         logger.info("IM url: %s", image_manager_url)
 
         file_name = re.sub(r'[^a-zA-Z0-9]', '_v1_', link)
@@ -94,7 +92,7 @@ class TestExternalLinks:
         logger.info("Link is %s: %s", kind, link)
 
         modified_link = str(link).replace('[', '').replace(']', '')
-        image_manager_url = f"{im_url.replace('images/v4/', 'external/v1/')}{modified_link}"
+        image_manager_url = make_url_tail_in_alphabet_lower(f"{im_url.replace('images/v4/', 'external/v1/')}{modified_link}")
         logger.info("IM url: %s", image_manager_url)
 
         response_im = check_response(image_manager_url)
@@ -103,7 +101,7 @@ class TestExternalLinks:
             if response_im.status_code in [400, 403]:
                 pass
             else:
-                pytest.fail(" -> Link is valid! I can open it!!! <- ")
+                pytest.fail("Link is valid! I can open it!!!")
 
         stat_img_url = f"{static_url.replace('images/v4/', 'external/v1/')}{modified_link}"
         logger.info("static url: %s", stat_img_url)
@@ -114,7 +112,7 @@ class TestExternalLinks:
             if response_static.status_code in [400, 403]:
                 pass
             else:
-                pytest.fail(" -> Link is valid! I can open it!!! <- ")
+                pytest.fail("Link is valid! I can open it!!!")
 
     if __name__ == "__main__":
         test_external_link_invalid()
