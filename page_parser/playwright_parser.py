@@ -9,7 +9,10 @@ from urllib.parse import urlparse
 from urllib import parse
 from requests.adapters import HTTPAdapter
 from urllib.request import urlopen
-
+import re
+from playwright.sync_api import Page, expect
+from playwright.sync_api import sync_playwright
+import time
 
 urllib3.disable_warnings()
 c = cookies.SimpleCookie()
@@ -27,12 +30,12 @@ class MyAdapter(HTTPAdapter):
         )
 
 
-sess = requests.session()
-sess.proxies.update({
-    'https': 'http://10.77.152.192',
-})
-
-sess.mount("https://", MyAdapter())
+# sess = requests.session()
+# # sess.proxies.update({
+# #     'https': 'http://10.77.152.192',
+# # })
+#
+# sess.mount("https://", MyAdapter())
 
 # host = ''
 host = 'pre.'
@@ -45,7 +48,8 @@ routes = ['tournament/jupiler-pro-league-24-25', 'tournament/ligue-2-bkt-24-25',
 # url = "tournament/jupiler-pro-league-24-25"
 # route = "tournament/isu-world-championships-2024"
 # route = "sport_collection/editoral-programms-mma"
-route = "sport_collection/608ce1be-1c92-3436-af9e-89f221421034"
+# route = "sport_collection/608ce1be-1c92-3436-af9e-89f221421034"
+route = "sport_collection/basketball-broadcasts"
 # route = "tournament/cs-2-perfect-world-shanghai-major-2024"
 
 # url = "https://okko.sport/tournament/ligue-2-bkt-24-25"
@@ -107,9 +111,7 @@ headers = {
     "cookie": "odid=19558ebe-948c-7aaa-69ee-30ea77227318"
 }
 
-proxies = {
 
-}
 
 # короткая реализаация без requests
 # with urlopen(url) as response:
@@ -119,21 +121,32 @@ proxies = {
 # print(response_status == 200)  # проверяем успешен ли запрос
 # print(html.decode())  # выводим полученный ответ на экран
 
+# r = requests.get(url, headers=headers, allow_redirects=True, verify=False, stream=True, timeout=5)
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    context = browser.new_context(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36')
+    page = context.new_page()
+    page.goto(url=url)
+    # page.mouse.wheel(horizontally, vertically(positive is
+    # scrolling down, negative is scrolling up)
+    for i in range(5): #make the range as long as needed
+        page.mouse.wheel(0, 500)
+        time.sleep(5)
+    content = page.inner_html("*")
 
-r = s.get(url, headers=headers, allow_redirects=True, verify=False)
-if r.history:
-    print("Request was redirected")
-    for resp in r.history:
-        print(resp.status_code, resp.url)
-    print("Final destination:")
-    print(r.status_code, r.url)
-else:
-    print("Request was not redirected")
+# if r.history:
+#     print("Request was redirected")
+#     for resp in r.history:
+#         print(resp.status_code, resp.url)
+#     print("Final destination:")
+#     print(r.status_code, r.url)
+# else:
+#     print("Request was not redirected")
+#
+#
+# print(r.status_code)
 
-
-print(r.status_code)
-
-bs = BeautifulSoup(r.text, 'lxml')
+bs = BeautifulSoup(content, 'lxml')
 # print(bs)
 data = bs.select("picture", {"class": "NCBBdh36 rfa0EE5_"}.get('source'))
 print(data)
