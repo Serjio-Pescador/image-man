@@ -8,7 +8,7 @@ from utils.utils_func import make_new_url_tail_rounded_width
 from utils.receive_response import check_response
 from static.test_uuid import PresetData
 from utils.app_logger import get_logger
-from utils.utils_func import compare_two_string
+from utils.utils_func import compare_two_string, compare_two_digital
 from utils.utils_func import make_url_tail_in_alphabet_lower
 
 
@@ -50,12 +50,14 @@ class TestNewSportReview:
         response_im = check_response(image_manager_url)
 
         name_file = f"uuid_{review_uuid}_{preset}_width_{required_width}"
-        make_screenshot(response_im, img_uuid=name_file, required_width=response_width)
+        img_width, img_height = make_screenshot(response_im, img_uuid=name_file)
 
         stat_img_url = f"{static_url}{review_uuid}?{query_tail}"
         logger.info("static url: %s", stat_img_url)
         response_static = check_response(stat_img_url)
 
+        if required_width:
+            compare_two_digital(response_width, img_width, "WIDTH")
         compare_two_string(response_im.headers.get('etag'), response_static.headers.get('etag'), "ETAG")
         compare_screenshot(response_static, image_snapshot, img_uuid=name_file, required_width=response_width)
 

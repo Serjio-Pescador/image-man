@@ -31,12 +31,12 @@ def compare_screenshot(self, image_snapshot, img_uuid, diff: float = 0.5,
             image_snapshot(picture, f"{abs_file_path}", diff)
         except Exception as e:
             # logger.error("Image does not match the snapshot stored in screenshots.", e)
-            logger.error("Image does not match the snapshot stored in screenshots.")
+            logger.error("Image does not match the snapshot stored in screenshots")
             allure_attach_image(src_path=f"{abs_file_path}",
                                 img_uuid=f"{img_uuid}", suffix='.new')
             allure_attach_image(src_path=f"{abs_file_path}",
                                 img_uuid=f"{img_uuid}", suffix='.diff')
-            pytest.fail("Image does not match the snapshot.", e)
+            pytest.fail("Image does not match the snapshot", e)
 
     static_img_width, static_img_height = picture.size
     logger.info("static_img_width=%s, static_img_height=%s", static_img_width, static_img_height)

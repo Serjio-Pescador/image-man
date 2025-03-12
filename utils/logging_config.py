@@ -9,7 +9,7 @@ def my_custom_logger(logger_name, level=logging.INFO):
     logger = logging.getLogger(logger_name)
     logger.setLevel(level)
     format_string = ("%(asctime)s — %(name)s — %(levelname)s — %(funcName)s:"
-                    "%(lineno)d — %(message)s")
+                     "%(lineno)d — %(message)s")
     log_format = logging.Formatter(format_string)
     # Creating and adding the console handler
     console_handler = logging.StreamHandler(sys.stdout)

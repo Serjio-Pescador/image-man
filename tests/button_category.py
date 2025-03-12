@@ -35,7 +35,7 @@ class TestButtonsCategory:
         else:
             scale_factor = 2
 
-        query_tail = (f"presetId={preset}&width={required_width}&scale={scale_factor}&quality=80&mediaType=webp")
+        query_tail = f"presetId={preset}&width={required_width}&scale={scale_factor}&quality=80&mediaType=webp"
         query_im, response_width = make_new_url_tail_rounded_width(query_tail)
 
         image_manager_url = make_url_tail_in_alphabet_lower(f"{host_url}{data_uuid}?{query_im}")

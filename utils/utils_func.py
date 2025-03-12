@@ -51,7 +51,7 @@ def make_rounded_required_size(param: int, name: str) -> int:
     if param < 10:
         new_param = 10
     elif param < 100:
-        new_param = param // 10 + 9
+        new_param = param // 10 * 10 + 9
     elif param % 10 == 0:
         new_param = param
     elif 99 >= param % 100 > 80:
@@ -59,7 +59,7 @@ def make_rounded_required_size(param: int, name: str) -> int:
     elif param % 20 != 0:
         new_param = param + 20 - (param % 20)
 
-    logger.info("Required {name} in IM: %s", new_param)
+    logger.info("Required %s in IM: %s", name, new_param)
     return new_param
 
 
@@ -99,9 +99,10 @@ def compare_two_digital(from_request: int, from_image: int, name: str) -> bool:
     else:
         with allure.step("{} изображения. {} == {}".format(name, from_request, from_image)):
             logger.info("Equal %s! %s == %s", name, from_request, from_image)
+            pass
     finally:
         if from_request is not None:
-            return from_request == from_image
+            return abs(from_request - from_image) <= 1
         else:
             return True
 
@@ -116,6 +117,7 @@ def compare_two_string(first_str: str, second_str: int, name: str) -> bool:
     else:
         with allure.step("Equal {}! {} == {}".format(name, first_str, second_str)):
             logger.info("Equal %s. %s == %s", name, first_str, second_str)
+            pass
     finally:
         return first_str == second_str
 

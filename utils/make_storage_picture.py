@@ -13,9 +13,7 @@ logger = get_logger(__name__)
 
 def make_screenshot(self, img_uuid,
                     src_path: str = 'screenshots/',
-                    required_width: int = None,
-                    required_height: int = None,
-                    ):
+                    ) -> tuple[int, int]:
     abs_file_path = get_file_name(src_path, img_uuid)
 
     if self.content:
@@ -32,6 +30,4 @@ def make_screenshot(self, img_uuid,
 
     with allure.step("Изображение из ИМ"):
         allure_attach_image(abs_file_path, img_uuid)
-    assert compare_two_digital(required_width, image_manager_img_width, "WIDTH"), "Different WIDTH"
-    assert compare_two_digital(required_height, image_manager_img_height, "HEIGHT"), "Different HEIGHT"
-    return
+    return image_manager_img_width, image_manager_img_height

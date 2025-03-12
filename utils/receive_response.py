@@ -35,4 +35,4 @@ def check_response(url, timeout: int = None, **kwargs):
 
 
 if __name__ == "__main__":
-    check_response()
+    check_response(url=None)

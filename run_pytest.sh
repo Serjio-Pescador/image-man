@@ -8,13 +8,6 @@ PURPLE="\033[0;35m"
 ENDCOLOR="\033[0m"
 
 
-if [[ "$OSTYPE" =~ ^msys ]]; then
-    OS=Scripts
-else
-    # shellcheck disable=SC2034
-    OS=bin
-fi
-
 if [[ $1 ]]; then
   REPEATFAILED=true
 else
@@ -34,8 +27,6 @@ else
 fi
 
 
-#source venv/$OS/activate
-clear
 echo -e "${YELLOW}Remove directory ./screenshots${ENDCOLOR}"
 rm -r ./screenshots
 
@@ -62,5 +53,3 @@ echo -e "${YELLOW}-------------------------------${ENDCOLOR}"
 echo -e "${YELLOW}|   Opening allure-report...  |${ENDCOLOR}"
 echo -e "${YELLOW}-------------------------------${ENDCOLOR}"
 allure serve allure-results --port 9999
-
-#deactivate

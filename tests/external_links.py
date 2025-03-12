@@ -66,7 +66,8 @@ class TestExternalLinks:
         modified_link = remove_prefix(modified_link, "%5B")
         modified_link = remove_suffix(modified_link, "%5D")
 
-        image_manager_url = make_url_tail_in_alphabet_lower(f"{im_url.replace('images/v4/', 'external/v1/')}{modified_link}")
+        image_manager_url = make_url_tail_in_alphabet_lower(
+            f"{im_url.replace('images/v4/', 'external/v1/')}{modified_link}")
         logger.info("IM url: %s", image_manager_url)
 
         file_name = re.sub(r'[^a-zA-Z0-9]', '_v1_', link)
@@ -92,7 +93,8 @@ class TestExternalLinks:
         logger.info("Link is %s: %s", kind, link)
 
         modified_link = str(link).replace('[', '').replace(']', '')
-        image_manager_url = make_url_tail_in_alphabet_lower(f"{im_url.replace('images/v4/', 'external/v1/')}{modified_link}")
+        image_manager_url = make_url_tail_in_alphabet_lower(
+            f"{im_url.replace('images/v4/', 'external/v1/')}{modified_link}")
         logger.info("IM url: %s", image_manager_url)
 
         response_im = check_response(image_manager_url)
