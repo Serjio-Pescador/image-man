@@ -48,7 +48,7 @@ class TestTvChannels:
         logger.info("static url: %s", stat_img_url)
         response_static = check_response(stat_img_url, timeout=10)
 
-        if not compare_two_digital(response_height, img_width, "HEIGHT"):
+        if not compare_two_digital(response_height, img_height, "HEIGHT"):
             pytest.fail("Different HEIGHT")
         compare_two_string(response_im.headers.get('etag'), response_static.headers.get('etag'), "ETAG")
         compare_screenshot(response_static, image_snapshot, img_uuid=name_screenshot)
