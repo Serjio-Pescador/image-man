@@ -7,7 +7,7 @@ from utils.make_storage_picture import make_screenshot
 from utils.receive_response import check_response
 from static.test_uuid import TVchannels
 from utils.app_logger import get_logger
-from utils.utils_func import compare_two_string, compare_two_digital, make_rounded_required_size
+from utils.utils_func import compare_two_string, compare_two_digital, make_rounded_required_size, change_param_in_url_tail, make_url_tail_in_alphabet_lower
 # from conftest import test_ops
 
 
@@ -33,9 +33,10 @@ class TestTvChannels:
         logger.info("TV channel uuid: %s", tv_channel_uuid)
         height = 72
 
-        query_tail = f"presetId={preset}&clienttype=tv&mediatype=png&height={height}"
+        query_tail = f"presetId={preset}&clientType=tv&mediaType=png&height={height}"
         response_height = make_rounded_required_size(height, 'height')
-        query_im = f"clienttype=tv&height={response_height}&mediatype=png&presetid={preset}"
+        change_height_im_query = change_param_in_url_tail(query_tail, 'height', response_height)
+        query_im = make_url_tail_in_alphabet_lower(change_height_im_query)
 
         image_manager_url = f"{host_url}{tv_channel_uuid}?{query_im}"
         logger.info("IM url: %s", image_manager_url)
@@ -46,7 +47,7 @@ class TestTvChannels:
 
         stat_img_url = f"{static_url}{tv_channel_uuid}?{query_tail}"
         logger.info("static url: %s", stat_img_url)
-        response_static = check_response(stat_img_url, timeout=15)
+        response_static = check_response(stat_img_url, timeout=20)
 
         if not compare_two_digital(response_height, img_height, "HEIGHT"):
             pytest.fail("Different HEIGHT")

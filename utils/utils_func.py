@@ -37,7 +37,6 @@ def make_new_url_tail_rounded_width(base_tail: str) -> tuple[str, int]:
         new_width = width + 20 - (width % 20)
 
     logger.info("Required width: %s", new_width)
-    # assert new_width % 10 == 0
 
     eql_query_im = query_params.copy()
     eql_query_im['width'] = [str(new_width)]
@@ -61,6 +60,17 @@ def make_rounded_required_size(param: int, name: str) -> int:
 
     logger.info("Required %s in IM: %s", name, new_param)
     return new_param
+
+
+def change_param_in_url_tail(base_tail: str, name: str, new_value: [int, str]) -> str:
+    query_params = parse_qs(base_tail)
+
+    eql_query_im = query_params.copy()
+    eql_query_im[name] = [str(new_value)]
+
+    query_tail_im = ("&".join(f'{k}={v[0]}' for k, v in eql_query_im.items()))
+    logger.info("Change param %s in query: %s", name, query_tail_im)
+    return query_tail_im
 
 
 def remove_prefix(text, prefix):
@@ -139,4 +149,5 @@ def make_url_tail_in_alphabet_lower(base_url: str) -> str:
         final_url = base_url
     else:
         final_url = new_tail
+    logger.info("Final IM url: %s", final_url)
     return final_url
