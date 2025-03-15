@@ -1,4 +1,4 @@
-import requests
+from datetime import datetime
 from bs4 import BeautifulSoup
 import cloudscraper
 from http import cookies
@@ -8,16 +8,24 @@ from urllib3 import PoolManager
 from urllib.parse import urlparse
 from urllib import parse
 from requests.adapters import HTTPAdapter
-from urllib.request import urlopen
-import re
-from playwright.sync_api import Page, expect
 from playwright.sync_api import sync_playwright
 import time
+from collections import defaultdict
+import json
 
 urllib3.disable_warnings()
 c = cookies.SimpleCookie()
 
 s = cloudscraper.create_scraper(delay=20, browser={'custom': 'ScraperBot/1.0'})
+
+print('Write parsed data to file? (Yes/No)')
+x = input()
+if x.lower() in ['y', 'yes']:
+    writing_to_file = True
+else:
+    writing_to_file = False
+
+file = './page_parser/parse_data.txt'
 
 
 class MyAdapter(HTTPAdapter):
@@ -45,20 +53,24 @@ domain = f"https://{host}okko.sport/"
 routes = ['tournament/jupiler-pro-league-24-25', 'tournament/ligue-2-bkt-24-25', 'sport_collection/cybersport',
           'sport_collection/5d658271-1736-3215-a420-0cc3e2b75a20']
 
-# url = "tournament/jupiler-pro-league-24-25"
 # route = "tournament/isu-world-championships-2024"
+# route = "tournament/euroleaguebasketball-24-25"
+# route = "sport_collection/basketball"
+# route = 'sport_collection/sport_past_broadcasts?filter=%7B\"tournamentId\"%3A"3402ebb2-2ff1-30e1-823c-ebb3b0562531\"%7D\"'
+# route = "tournament/pari-superleague-23-24-women"
 # route = "sport_collection/editoral-programms-mma"
+route = "sport_collection/figure-skating"
+# route = "sport_collection/biathlon"
 # route = "sport_collection/608ce1be-1c92-3436-af9e-89f221421034"
-route = "sport_collection/basketball-broadcasts"
-# route = "tournament/cs-2-perfect-world-shanghai-major-2024"
-
-# url = "https://okko.sport/tournament/ligue-2-bkt-24-25"
-# url = "https://okko.sport/sport_collection/cybersport"
+# route = 'sport_collection/sport_past_broadcasts?filter=%7B\"tournamentId\"%3A\"7327d6f9-c280-325a-9b46-a5d65062b42e\"%7D'
 
 session_param = "?clientSessionId=19558dbf-3a14-7aaa-2236-96f4cbf89cb6&sso=false"
 
-url = domain + route #+ session_param
+url = domain + route
 print(url)
+if writing_to_file:
+    with open(file, 'a') as f:
+        f.write(url + '\n')
 
 # with open('okko.sport.json') as f:
 #     d = json.load(f)
@@ -112,26 +124,25 @@ headers = {
 }
 
 
+viewport = {'width': 1600, 'height': 900}
+print(viewport)
+if writing_to_file:
+    with open(file, 'a') as f:
+        f.write(str(viewport) + "\n")
 
-# короткая реализаация без requests
-# with urlopen(url) as response:
-#     response_status = response.status  # сохраняем статус запроса в переменную
-#     html = response.read()  # вычитываем ответ в переменную
-#
-# print(response_status == 200)  # проверяем успешен ли запрос
-# print(html.decode())  # выводим полученный ответ на экран
-
-# r = requests.get(url, headers=headers, allow_redirects=True, verify=False, stream=True, timeout=5)
 with sync_playwright() as p:
     browser = p.chromium.launch()
-    context = browser.new_context(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36')
+    context = browser.new_context(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, '
+                                             'like Gecko) Chrome/89.0.4389.114 Safari/537.36',
+                                  viewport=viewport)
     page = context.new_page()
     page.goto(url=url)
     # page.mouse.wheel(horizontally, vertically(positive is
     # scrolling down, negative is scrolling up)
-    for i in range(5): #make the range as long as needed
+    # make the range as long as needed
+    for i in range(5):
         page.mouse.wheel(0, 500)
-        time.sleep(5)
+        time.sleep(2)
     content = page.inner_html("*")
 
 # if r.history:
@@ -149,7 +160,7 @@ with sync_playwright() as p:
 bs = BeautifulSoup(content, 'lxml')
 # print(bs)
 data = bs.select("picture", {"class": "NCBBdh36 rfa0EE5_"}.get('source'))
-print(data)
+# print(data)
 
 found_data1 = []
 found_data2 = []
@@ -176,6 +187,10 @@ for elem in data:
 
 for i in range(len(found_data1)):
     print(found_data1[i], '=', found_data2[i])
+    if writing_to_file:
+        with open(file, 'a') as f:
+            f.write(f"{found_data1[i], '=', found_data2[i]}\n")
+
 
 list_uuid_used_preset = []
 for j, element in enumerate(found_data2):
@@ -183,5 +198,33 @@ for j, element in enumerate(found_data2):
         if k == 'presetId':
             list_uuid_used_preset.append((found_data1[j], element['presetId'], element['width']))
 
+dict_preset_uuids = defaultdict(list)
+for j, element in enumerate(found_data2):
+    for k, v in element.items():
+        if k == 'presetId':
+            if found_data1[j] not in dict_preset_uuids[element['presetId']]:
+                dict_preset_uuids[element['presetId']].append(found_data1[j])
+
+r = json.dumps(dict_preset_uuids)
+loaded_r = json.loads(r)
+print(loaded_r)
+
+# if writing_to_file:
+file_name = datetime.today().strftime('%Y_%m_%d_%H_%M_%S')
+with open(f'./page_parser/{file_name}.json', 'w') as json_file:
+    json.dump(dict_preset_uuids, json_file, sort_keys=True)
+
 print(*list_uuid_used_preset, sep='\n')
+if writing_to_file:
+    with open(file, 'a') as f:
+        for line in list_uuid_used_preset:
+            f.write(f"{line}\n")
+
 print([*set([x[0] for x in list_uuid_used_preset])], sep=',\n')
+if writing_to_file:
+    with open(file, 'a') as f:
+        f.write(str(list(set([x[0] for x in list_uuid_used_preset]))))
+
+if writing_to_file:
+    with open(file, 'a') as f:
+        f.write("END OF THIS PAGE PARSING.")
